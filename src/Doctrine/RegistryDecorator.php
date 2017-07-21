@@ -5,6 +5,7 @@ namespace LineMob\Core\Doctrine;
 use Doctrine\Common\Persistence\ObjectRepository;
 use LineMob\Core\Input;
 use LineMob\Core\RegistryInterface;
+use LineMob\Core\SenderHandlerInterface;
 use LineMob\Core\Storage\CommandStorageInterface;
 
 class RegistryDecorator implements RegistryInterface
@@ -27,9 +28,17 @@ class RegistryDecorator implements RegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function add($commandClass, $default = false)
+    public function add($commandClass, SenderHandlerInterface $handler, $default = false)
     {
-        $this->decoratedRegistry->add($commandClass, $default);
+        $this->decoratedRegistry->add($commandClass, $handler, $default);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCommandList()
+    {
+        return $this->decoratedRegistry->getCommandList();
     }
 
     /**
