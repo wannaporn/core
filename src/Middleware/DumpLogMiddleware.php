@@ -4,6 +4,7 @@ namespace LineMob\Core\Middleware;
 
 use League\Tactician\Middleware;
 use LineMob\Core\Command\AbstractCommand;
+use Symfony\Component\VarDumper\VarDumper;
 
 class DumpLogMiddleware implements Middleware
 {
@@ -23,7 +24,7 @@ class DumpLogMiddleware implements Middleware
     {
         // dev only
         if ($this->isDebug && $command->logs) {
-            dump($command->logs);
+            VarDumper::dump($command->logs);
         }
 
         return $next($command);
