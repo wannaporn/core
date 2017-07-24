@@ -19,9 +19,11 @@ class GuzzleHttpClient implements HttpClientInterface
     public function __construct($channelToken, array $config = [])
     {
         $this->httpClient = GuzzleAdapter::createWithConfig(array_replace_recursive([
-            'User-Agent' => 'LINEMOB-PHP/'.Constants::VERSION,
-            'Authorization' => 'Bearer '.$channelToken,
             'verify' => true,
+            'headers' => [
+                'User-Agent' => 'LINEMOB-PHP/'.Constants::VERSION,
+                'Authorization' => 'Bearer '.$channelToken,
+            ]
         ], $config));
     }
 
@@ -30,7 +32,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     public function get($url)
     {
-        return $this->doRequest('POST', [], []);
+        return $this->doRequest('POST', $url, [], []);
     }
 
     /**
@@ -38,7 +40,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     public function post($url, array $data)
     {
-        return $this->doRequest('POST', ['Content-Type: application/json; charset=utf-8'], $data);
+        return $this->doRequest('POST', $url, ['Content-Type' => 'application/json; charset=utf-8'], $data);
     }
 
     /**
@@ -51,7 +53,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     private function doRequest($method, $url, array $headers = [], array $data = [])
     {
-        $request = new Request($method, $url, $headers, $data);
+        $request = new Request($method, $url, $headers, \GuzzleHttp\json_encode($data));
         $response = $this->httpClient->sendRequest($request);
 
         return new Response(

@@ -4,7 +4,7 @@ namespace LineMob\Core;
 
 final class Constants
 {
-    const VERSION = '0.2.02';
+    const VERSION = '0.2.0';
 
     const TYPE_TEXT = 'text';
     const TYPE_STICKER = 'sticker';

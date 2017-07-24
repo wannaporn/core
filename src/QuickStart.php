@@ -66,11 +66,10 @@ class QuickStart
         }
 
         // should be first of all middlewares
-        array_unshift($middlewares, new LockingMiddleware());
+        array_unshift($this->middlewares, new LockingMiddleware());
 
         // must be end of all middlewares
-        array_push(
-            $middlewares,
+        array_push( $this->middlewares,
             new CommandHandlerMiddleware(
                 new ClassNameExtractor(),
                 new InMemoryLocator($registry->getCommandList()),
@@ -78,7 +77,7 @@ class QuickStart
             )
         );
 
-        $commandBus = new CommandBus($middlewares);
+        $commandBus = new CommandBus($this->middlewares);
 
         return new Receiver($linebot, $registry, $commandBus);
     }
