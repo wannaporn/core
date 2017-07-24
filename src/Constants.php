@@ -4,6 +4,8 @@ namespace LineMob\Core;
 
 final class Constants
 {
+    const VERSION = '0.1.0';
+
     const TYPE_TEXT = 'text';
     const TYPE_STICKER = 'sticker';
     const TYPE_CAROUSEL = 'carousel';
