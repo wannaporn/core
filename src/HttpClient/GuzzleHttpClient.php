@@ -1,12 +1,13 @@
 <?php
 
-namespace LineMob\Core;
+namespace LineMob\Core\HttpClient;
 
 use GuzzleHttp\Psr7\Request;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Http\Client\HttpClient;
 use LINE\LINEBot\HTTPClient as HttpClientInterface;
 use LINE\LINEBot\Response;
+use LineMob\Core\Constants;
 
 class GuzzleHttpClient implements HttpClientInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LineMob\Core;
+namespace LineMob\Core\HttpClient;
 
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 

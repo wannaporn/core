@@ -9,6 +9,7 @@ use League\Tactician\Handler\Locator\InMemoryLocator;
 use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Plugins\LockingMiddleware;
 use LINE\LINEBot;
+use LineMob\Core\HttpClient\GuzzleHttpClient;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\Factory;
 use LineMob\Core\Message\TextMessage;
