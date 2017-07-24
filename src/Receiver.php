@@ -3,13 +3,12 @@
 namespace LineMob\Core;
 
 use League\Tactician\CommandBus;
-use LINE\LINEBot;
 use LineMob\Core\Command\FallbackCommand;
 
 class Receiver
 {
     /**
-     * @var LINEBot
+     * @var LineBot
      */
     private $bot;
 
@@ -23,7 +22,7 @@ class Receiver
      */
     private $registry;
 
-    public function __construct(LINEBot $bot, RegistryInterface $registry, CommandBus $commandBus)
+    public function __construct(LineBot $bot, RegistryInterface $registry, CommandBus $commandBus)
     {
         $this->bot = $bot;
         $this->registry = $registry;

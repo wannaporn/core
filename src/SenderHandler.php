@@ -2,14 +2,13 @@
 
 namespace LineMob\Core;
 
-use LINE\LINEBot;
 use LineMob\Core\Command\AbstractCommand;
 use LineMob\Core\Message\FactoryInterface;
 
 class SenderHandler implements SenderHandlerInterface
 {
     /**
-     * @var LINEBot
+     * @var LineBot
      */
     protected $bot;
 
@@ -19,10 +18,10 @@ class SenderHandler implements SenderHandlerInterface
     protected $factory;
 
     /**
-     * @param LINEBot $bot
+     * @param LineBot $bot
      * @param FactoryInterface $factory
      */
-    public function __construct(LINEBot $bot, FactoryInterface $factory)
+    public function __construct(LineBot $bot, FactoryInterface $factory)
     {
         $this->bot = $bot;
         $this->factory = $factory;

@@ -8,7 +8,6 @@ use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
 use League\Tactician\Handler\Locator\InMemoryLocator;
 use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Plugins\LockingMiddleware;
-use LINE\LINEBot;
 use LineMob\Core\HttpClient\GuzzleHttpClient;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\Factory;
@@ -58,10 +57,10 @@ class QuickStart
      */
     public function setup($lineChannelToken, $lineChannelSecret, array $httpClientConfig = [])
     {
-        $linebot = new LINEBot(new GuzzleHttpClient($lineChannelToken, $httpClientConfig), ['channelSecret' => $lineChannelSecret]);
+        $linebot = new LineBot(new GuzzleHttpClient($lineChannelToken, $httpClientConfig), ['channelSecret' => $lineChannelSecret]);
         $factory = new Factory();
-        $handler = new SenderHandler($linebot, $factory);
         $registry = new Registry();
+        $handler = new SenderHandler($linebot, $factory);
 
         foreach ($this->commands as $command => $default) {
             $registry->add($command, $handler, $default);
