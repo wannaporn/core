@@ -49,16 +49,18 @@ class QuickStart
         return $this;
     }
 
+    /**
+     * @param string $lineChannelToken
+     * @param string $lineChannelSecret
+     * @param array $httpClientConfig
+     *
+     * @return Receiver
+     */
     public function setup($lineChannelToken, $lineChannelSecret, array $httpClientConfig = [])
     {
         $linebot = new LINEBot(new GuzzleHttpClient($lineChannelToken, $httpClientConfig), ['channelSecret' => $lineChannelSecret]);
-
         $factory = new Factory();
-        $factory->add(new TextMessage());
-        $factory->add(new CarouselMessage());
-
         $handler = new SenderHandler($linebot, $factory);
-
         $registry = new Registry();
 
         foreach ($this->commands as $command => $default) {
@@ -77,8 +79,9 @@ class QuickStart
             )
         );
 
-        $commandBus = new CommandBus($this->middlewares);
+        $factory->add(new TextMessage());
+        $factory->add(new CarouselMessage());
 
-        return new Receiver($linebot, $registry, $commandBus);
+        return new Receiver($linebot, $registry, new CommandBus($this->middlewares));
     }
 }
