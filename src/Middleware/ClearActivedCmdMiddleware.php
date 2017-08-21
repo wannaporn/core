@@ -14,7 +14,7 @@ class ClearActivedCmdMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        $command->actived = false;
+        $command->active = false;
 
         return $next($command);
     }
