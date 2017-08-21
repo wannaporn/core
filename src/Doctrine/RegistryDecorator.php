@@ -59,9 +59,9 @@ class RegistryDecorator implements RegistryInterface
         $command = $this->decoratedRegistry->findCommand($input);
 
         if ($user = $this->findUser($input->userId)) {
-            if ($activedCmd = $user->getLineActivedCmd()) {
+            if ($activeCmd = $user->getLineActivedCmd()) {
                 $originText = $input->text;
-                $input->text = $activedCmd;
+                $input->text = $activeCmd;
 
                 // find previous command
                 $command = $this->decoratedRegistry->findCommand($input);

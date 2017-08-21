@@ -14,7 +14,7 @@ class StoreActivedCmdMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command->actived) {
+        if ($command->active) {
             if (!$command->storage) {
                 throw new \RuntimeException("Require storage before using this middleware!");
             }
