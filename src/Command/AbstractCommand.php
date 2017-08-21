@@ -39,7 +39,7 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = [])
     {
-        $this->data = $data;
+        $this->data = array_replace_recursive($this->data, $data);
 
         if (!$this->type) {
             $this->type = Constants::TYPE_TEXT;
