@@ -21,14 +21,16 @@ class TextTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
+        $text = $this->text;
+
         if ($this->emoticon) {
             $emoticon = substr($this->emoticon, 2);
             $emoticon = hex2bin(str_repeat('0', 8 - strlen($emoticon)).$emoticon);
             $emoticon = mb_convert_encoding($emoticon, 'UTF-8', 'UTF-32BE');
 
-            $this->text = sprintf("%s %s", $emoticon, $this->text);
+            $text = sprintf("%s %s", $emoticon, $this->text);
         }
 
-        return new TextMessageBuilder($this->text);
+        return new TextMessageBuilder($text);
     }
 }
