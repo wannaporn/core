@@ -5,6 +5,7 @@ namespace LineMob\Core\Command;
 use LineMob\Core\Input;
 use LineMob\Core\Storage\CommandStorageInterface;
 use LineMob\Core\Template\TemplateInterface;
+use LineMob\Core\Template\TextTemplate;
 
 /**
  * Class AbstractCommand
@@ -13,7 +14,7 @@ use LineMob\Core\Template\TemplateInterface;
  *
  * @property boolean $active
  * @property Input $input
- * @property TemplateInterface $message
+ * @property TemplateInterface|string $message
  * @property string $cmd
  * @property string $mode
  * @property array $tos
@@ -73,8 +74,17 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function offsetSet($offset, $value)
     {
-        if ('message' === $offset && !$value instanceof TemplateInterface) {
-            throw new \LogicException("The value of `message` key need to be instanceof ".TemplateInterface::class);
+        if ('message' === $offset) {
+            if (!$value instanceof TemplateInterface) {
+                $text = new TextTemplate();
+                $text->text = (string) $value;
+                $value = $text;
+            }
+
+            // still not!
+            if (!$value instanceof TemplateInterface) {
+                throw new \LogicException("The value of `message` key need to be instanceof ".TemplateInterface::class);
+            }
         }
 
         $this->data[$offset] = $value;
