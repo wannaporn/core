@@ -23,9 +23,4 @@ class Action
      * @var ActionArea
      */
     public $area;
-
-    public function __construct(array $text)
-    {
-
-    }
 }
