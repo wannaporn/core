@@ -2,7 +2,7 @@
 
 namespace LineMob\Core\Template\Imagemap;
 
-class ImagemapAction
+class Action
 {
     /**
      * @var string
@@ -20,7 +20,12 @@ class ImagemapAction
     public $link;
 
     /**
-     * @var ImagemapActionArea
+     * @var ActionArea
      */
     public $area;
+
+    public function __construct(array $text)
+    {
+
+    }
 }

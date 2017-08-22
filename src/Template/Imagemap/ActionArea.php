@@ -4,7 +4,7 @@ namespace LineMob\Core\Template\Imagemap;
 
 use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
 
-class ImagemapActionArea
+class ActionArea
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ class ImagemapActionArea
      */
     public $height;
 
-    public function areaBuilder()
+    public function getAreaBuilder()
     {
         return new AreaBuilder($this->x, $this->y, $this->width, $this->height);
     }

@@ -21,12 +21,17 @@ class ImagemapTemplate extends AbstractTemplate
     protected $altText = 'this is an imagemap';
 
     /**
-     * @var BaseSize
+     * @var int
      */
-    protected $baseSize;
+    protected $width;
 
     /**
-     * @var ImagemapAction[]
+     * @var int
+     */
+    protected $height;
+
+    /**
+     * @var Action[]
      */
     protected $actions;
 
@@ -35,33 +40,20 @@ class ImagemapTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
-        $baseUrl = $this->baseUrl;
-        $altText = $this->altText;
+        $baseSizeBuilder = new BaseSizeBuilder($this->height, $this->width);
 
-        $baseSizeHeight = $this->baseSize->height;
-        $baseSizeWidth = $this->baseSize->width;
-        $baseSizeBuilder = new BaseSizeBuilder($baseSizeHeight, $baseSizeWidth);
-
-        $imageMapActions = [];
+        $actionBuilders = [];
 
         foreach ($this->actions as $action) {
             if ($action->type == 'uri') {
-                $link = $action->link;
-                $area = $action->area;
-                $area = $area->areaBuilder();
-
-                $imageMapActions[] = new ImagemapUriActionBuilder($link, $area);
+                $actionBuilders[] = new ImagemapUriActionBuilder($action->link, $action->area->getAreaBuilder());
             }
 
             if ($action->type == 'message') {
-                $message = $action->text;
-                $area = $action->area;
-                $area = $area->areaBuilder();
-
-                $imageMapActions[] = new ImagemapMessageActionBuilder($message, $area);
+                $actionBuilders[] = new ImagemapMessageActionBuilder($action->text, $action->area->getAreaBuilder());
             }
         }
 
-        return new ImagemapMessageBuilder($baseUrl, $altText, $baseSizeBuilder, $imageMapActions);
+        return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSizeBuilder, $actionBuilders);
     }
 }
