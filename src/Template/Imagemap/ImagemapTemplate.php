@@ -13,27 +13,27 @@ class ImagemapTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    protected $baseUrl;
+    public $baseUrl;
 
     /**
      * @var string
      */
-    protected $altText = 'this is an imagemap';
+    public $altText = 'this is an imagemap';
 
     /**
      * @var int
      */
-    protected $width;
+    public $width;
 
     /**
      * @var int
      */
-    protected $height;
+    public $height;
 
     /**
      * @var Action[]
      */
-    protected $actions;
+    public $actions;
 
     /**
      * {@inheritdoc}
