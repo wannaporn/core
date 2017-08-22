@@ -1,10 +1,11 @@
 <?php
 
-namespace LineMob\Core\Message;
+namespace LineMob\Core\Factory;
 
 use LineMob\Core\Command\AbstractCommand;
+use LineMob\Core\Message\MessageInterface;
 
-class Factory implements FactoryInterface
+class MessageFactory implements MessageFactoryInterface
 {
     /**
      * @var MessageInterface[]
@@ -31,10 +32,10 @@ class Factory implements FactoryInterface
     {
         foreach ($this->messages as $message) {
             if ($message->supported($command)) {
-                return $message->createTemplate($command);
+                return $message->createTemplate($command->message);
             }
         }
 
-        throw new \RuntimeException("Unsupported message type: ".$command->type);
+        throw new \RuntimeException("Unsupported message type: ".get_class($command->message));
     }
 }

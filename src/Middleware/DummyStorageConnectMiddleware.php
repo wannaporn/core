@@ -17,7 +17,7 @@ class DummyStorageConnectMiddleware implements Middleware
     {
         // should find from real storage eg. mysql
         $command->storage = $storage = new CommandStorage();
-        $command->actived = $storage->getLineActivedCmd();
+        $command->active = $storage->getLineActivedCmd();
 
         $command->merge($storage->getLineCommandData());
 

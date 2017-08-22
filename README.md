@@ -7,10 +7,12 @@ A rapid line bot builder library - in php.
   
 ## TODOs
   - [ ] Add more line message template.
+      - [x] Text
+      - [x] Carousel
       - [ ] Video
       - [ ] Audio
       - [ ] Sticker
-      - [ ] Image
+      - [x] Image
+      - [ ] ImageMap
       - [ ] Link
   - [ ] Writing spec tests.
-  

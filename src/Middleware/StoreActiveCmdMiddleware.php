@@ -5,7 +5,7 @@ namespace LineMob\Core\Middleware;
 use League\Tactician\Middleware;
 use LineMob\Core\Command\AbstractCommand;
 
-class StoreActivedCmdMiddleware implements Middleware
+class StoreActiveCmdMiddleware implements Middleware
 {
     /**
      * @param AbstractCommand $command
@@ -14,7 +14,7 @@ class StoreActivedCmdMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command->actived) {
+        if ($command->active) {
             if (!$command->storage) {
                 throw new \RuntimeException("Require storage before using this middleware!");
             }
