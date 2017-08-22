@@ -2,28 +2,16 @@
 
 namespace LineMob\Core\Message;
 
-use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LineMob\Core\Command\AbstractCommand;
-use LineMob\Core\Constants;
+use LineMob\Core\Template\ImageTemplate;
 
-class ImageMessage implements MessageInterface
+class ImageMessage extends AbstractMessage
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createTemplate(AbstractCommand $command)
-    {
-        $originalUrl = $command['originalUrl'];
-        $previewImageUrl = $command['previewImageUrl'];
-
-        return new ImageMessageBuilder($originalUrl, $previewImageUrl);
-    }
-
     /**
      * {@inheritdoc}
      */
     public function supported(AbstractCommand $command)
     {
-        return Constants::TYPE_IMAGE == $command->type;
+        return $command->message instanceof ImageTemplate;
     }
 }

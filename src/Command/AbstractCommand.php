@@ -2,21 +2,20 @@
 
 namespace LineMob\Core\Command;
 
-use LineMob\Core\Constants;
 use LineMob\Core\Input;
 use LineMob\Core\Storage\CommandStorageInterface;
+use LineMob\Core\Template\TemplateInterface;
+use LineMob\Core\Template\TextTemplate;
 
 /**
  * Class AbstractCommand
  *
  * @package LineMob\Handler
  *
- * @property boolean $actived
+ * @property boolean $active
  * @property Input $input
- * @property string $message
+ * @property TemplateInterface|string $message
  * @property string $cmd
- * @property string $emoticon
- * @property string $type
  * @property string $mode
  * @property array $tos
  * @property string $to
@@ -39,11 +38,7 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = [])
     {
-        $this->data = $data;
-
-        if (!$this->type) {
-            $this->type = Constants::TYPE_TEXT;
-        }
+        $this->data = array_replace_recursive($this->data, $data);
     }
 
     /**
@@ -79,6 +74,19 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function offsetSet($offset, $value)
     {
+        if ('message' === $offset) {
+            if (!$value instanceof TemplateInterface) {
+                $text = new TextTemplate();
+                $text->text = (string) $value;
+                $value = $text;
+            }
+
+            // still not!
+            if (!$value instanceof TemplateInterface) {
+                throw new \LogicException("The value of `message` key need to be instanceof ".TemplateInterface::class);
+            }
+        }
+
         $this->data[$offset] = $value;
     }
 
@@ -117,6 +125,7 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
             }
 
             array_push($this->data['logs'], $value);
+
             return;
         }
 
