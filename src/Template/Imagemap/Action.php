@@ -23,4 +23,12 @@ class Action
      * @var ActionArea
      */
     public $area;
+
+    public function __construct(ActionArea $area, $type, $text = null, $link = null)
+    {
+        $this->type = $type;
+        $this->text = $text;
+        $this->link = $link;
+        $this->area = $area;
+    }
 }

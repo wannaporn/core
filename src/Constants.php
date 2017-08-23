@@ -12,6 +12,9 @@ final class Constants
     const TYPE_IMAGE = 'image';
     const TYPE_IMAGEMAP = 'imagemap';
 
+    const ACTION_TYPE_MESSAGE = 'message';
+    const ACTION_TYPE_URI = 'uri';
+
     const MODE_REPLY = 'reply';
     const MODE_PUSH = 'push';
     const MODE_MULTICAST = 'multicast';

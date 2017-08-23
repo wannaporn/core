@@ -6,6 +6,7 @@ use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
+use LineMob\Core\Constants;
 use LineMob\Core\Template\AbstractTemplate;
 
 class ImagemapTemplate extends AbstractTemplate
@@ -40,20 +41,32 @@ class ImagemapTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
-        $baseSizeBuilder = new BaseSizeBuilder($this->height, $this->width);
-
-        $actionBuilders = [];
+        $baseSize = new BaseSizeBuilder($this->height, $this->width);
+        $actions = [];
 
         foreach ($this->actions as $action) {
-            if ($action->type == 'uri') {
-                $actionBuilders[] = new ImagemapUriActionBuilder($action->link, $action->area->getAreaBuilder());
-            }
+            switch ($action->type) {
+                case Constants::ACTION_TYPE_URI;
+                    $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getAreaBuilder());
+                    break;
 
-            if ($action->type == 'message') {
-                $actionBuilders[] = new ImagemapMessageActionBuilder($action->text, $action->area->getAreaBuilder());
+                case Constants::ACTION_TYPE_MESSAGE;
+                    $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getAreaBuilder());
+                    break;
             }
         }
 
-        return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSizeBuilder, $actionBuilders);
+        return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
+    }
+
+    /**
+     * @param ActionArea $area
+     * @param string $type
+     * @param string|null $text
+     * @param string|null $link
+     */
+    public function addAction(ActionArea $area, $type, $text = null, $link = null)
+    {
+        $this->actions[] = new  Action($area, $type, $text, $link);
     }
 }
