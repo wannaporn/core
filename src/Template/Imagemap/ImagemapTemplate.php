@@ -6,7 +6,6 @@ use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
-use LineMob\Core\Constants;
 use LineMob\Core\Template\AbstractTemplate;
 
 class ImagemapTemplate extends AbstractTemplate
@@ -46,12 +45,12 @@ class ImagemapTemplate extends AbstractTemplate
 
         foreach ($this->actions as $action) {
             switch ($action->type) {
-                case Constants::ACTION_TYPE_URI;
-                    $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getAreaBuilder());
+                case Action::ACTION_TYPE_URI;
+                    $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
                     break;
 
-                case Constants::ACTION_TYPE_MESSAGE;
-                    $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getAreaBuilder());
+                case Action::ACTION_TYPE_MESSAGE;
+                    $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
                     break;
             }
         }

@@ -34,7 +34,7 @@ class ActionArea
         $this->height = $height;
     }
 
-    public function getAreaBuilder()
+    public function getArea()
     {
         return new AreaBuilder($this->x, $this->y, $this->width, $this->height);
     }
