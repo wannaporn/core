@@ -68,4 +68,22 @@ class ImagemapTemplate extends AbstractTemplate
     {
         $this->actions[] = new  Action($area, $type, $text, $link);
     }
+
+    /**
+     * @param ActionArea $area
+     * @param $link
+     */
+    public function addLinkAction(ActionArea $area, $link)
+    {
+        $this->actions[] = new Action($area, 'uri', null, $link);
+    }
+
+    /**
+     * @param ActionArea $area
+     * @param $text
+     */
+    public function addMessageAction(ActionArea $area, $text)
+    {
+        $this->actions[] = new Action($area, 'message', $text, null);
+    }
 }
