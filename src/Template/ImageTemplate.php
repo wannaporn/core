@@ -14,13 +14,13 @@ class ImageTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    public $previewImageUrl;
+    public $previewUrl;
 
     /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        return new ImageMessageBuilder($this->originalUrl, $this->previewImageUrl);
+        return new ImageMessageBuilder($this->originalUrl, $this->previewUrl);
     }
 }
