@@ -12,6 +12,7 @@ use LineMob\Core\Factory\MessageFactory;
 use LineMob\Core\HttpClient\GuzzleHttpClient;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\ImageMessage;
+use LineMob\Core\Message\StickerMessage;
 use LineMob\Core\Message\TextMessage;
 
 class QuickStart
@@ -82,6 +83,7 @@ class QuickStart
         $factory->add(new CarouselMessage());
         $factory->add(new ImageMessage());
         $factory->add(new TextMessage());
+        $factory->add(new StickerMessage());
 
         return new Receiver($linebot, $registry, new CommandBus($this->middlewares));
     }
