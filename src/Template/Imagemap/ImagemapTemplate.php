@@ -45,13 +45,11 @@ class ImagemapTemplate extends AbstractTemplate
 
         foreach ($this->actions as $action) {
             switch ($action->type) {
-                case Action::TYPE_URI;
+                case Action::TYPE_URI:
                     $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
                     break;
-
-                case Action::TYPE_MESSAGE;
+                default:
                     $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
-                    break;
             }
         }
 
