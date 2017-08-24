@@ -9,18 +9,18 @@ class VideoTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    public $videoUrl;
+    public $url;
 
     /**
      * @var string
      */
-    public $videoPosterUrl;
+    public $posterUrl;
 
     /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        return new VideoMessageBuilder($this->videoUrl, $this->videoPosterUrl);
+        return new VideoMessageBuilder($this->url, $this->posterUrl);
     }
 }
