@@ -48,23 +48,13 @@ class ImagemapTemplate extends AbstractTemplate
                 case Action::TYPE_URI:
                     $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
                     break;
-                default:
+                case Action::TYPE_MESSAGE:
                     $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
+                    break;
             }
         }
 
         return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
-    }
-
-    /**
-     * @param ActionArea $area
-     * @param string $type
-     * @param string|null $text
-     * @param string|null $link
-     */
-    public function addAction(ActionArea $area, $type, $text = null, $link = null)
-    {
-        $this->actions[] = new  Action($area, $type, $text, $link);
     }
 
     /**
