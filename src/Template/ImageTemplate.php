@@ -9,7 +9,7 @@ class ImageTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    public $originalUrl;
+    public $url;
 
     /**
      * @var string
@@ -21,6 +21,6 @@ class ImageTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
-        return new ImageMessageBuilder($this->originalUrl, $this->previewUrl);
+        return new ImageMessageBuilder($this->url, $this->previewUrl);
     }
 }
