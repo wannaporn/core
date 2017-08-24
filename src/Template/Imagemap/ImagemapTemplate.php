@@ -45,11 +45,11 @@ class ImagemapTemplate extends AbstractTemplate
 
         foreach ($this->actions as $action) {
             switch ($action->type) {
-                case Action::ACTION_TYPE_URI;
+                case Action::TYPE_URI;
                     $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
                     break;
 
-                case Action::ACTION_TYPE_MESSAGE;
+                case Action::TYPE_MESSAGE;
                     $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
                     break;
             }
@@ -75,7 +75,7 @@ class ImagemapTemplate extends AbstractTemplate
      */
     public function addLinkAction(ActionArea $area, $link)
     {
-        $this->actions[] = new Action($area, Action::ACTION_TYPE_URI, null, $link);
+        $this->actions[] = new Action($area, Action::TYPE_URI, null, $link);
     }
 
     /**
@@ -84,6 +84,6 @@ class ImagemapTemplate extends AbstractTemplate
      */
     public function addMessageAction(ActionArea $area, $text)
     {
-        $this->actions[] = new Action($area, Action::ACTION_TYPE_MESSAGE, $text, null);
+        $this->actions[] = new Action($area, Action::TYPE_MESSAGE, $text, null);
     }
 }

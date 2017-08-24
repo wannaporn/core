@@ -4,8 +4,8 @@ namespace LineMob\Core\Template\Imagemap;
 
 class Action
 {
-    const ACTION_TYPE_MESSAGE = 'message';
-    const ACTION_TYPE_URI = 'uri';
+    const TYPE_MESSAGE = 'message';
+    const TYPE_URI = 'uri';
 
     /**
      * @var string
