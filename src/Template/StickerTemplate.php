@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * Copyright 2017 Intelligence Business (Thailand) Co.,Ltd.
+ */
+
 namespace LineMob\Core\Template;
 
 use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
 
+/**
+ * @author Taned Suparpornhemin <taned@intbizth.com>
+ */
 class StickerTemplate extends AbstractTemplate
 {
     /**
@@ -15,7 +22,7 @@ class StickerTemplate extends AbstractTemplate
      * @var string
      */
     public $stickerId;
-
+    
     /**
      * {@inheritdoc}
      */
@@ -24,23 +31,55 @@ class StickerTemplate extends AbstractTemplate
         return new StickerMessageBuilder($this->packageId, $this->stickerId);
     }
 
+    /**
+     * @param int $stickerId
+     * @return StickerTemplate
+     */
     public static function createMoon($stickerId)
     {
-        return new self(1, $stickerId);
+        $self = new self();
+        $self->packageId = 1;
+        $self->stickerId = $stickerId;
+
+        return $self;
     }
 
-    public function createBrown($stickerId)
+    /**
+     * @param int $stickerId
+     * @return StickerTemplate
+     */
+    public static function createBrown($stickerId)
     {
-        return new self(2, $stickerId);
+        $self = new self();
+        $self->packageId = 2;
+        $self->stickerId = $stickerId;
+
+        return $self;
     }
 
-    public function createCherry($stickerId)
+    /**
+     * @param int $stickerId
+     * @return StickerTemplate
+     */
+    public static function createCherry($stickerId)
     {
-        return new self(3, $stickerId);
+        $self = new self();
+        $self->packageId = 3;
+        $self->stickerId = $stickerId;
+
+        return $self;
     }
 
-    public function createDaily($stickerId)
+    /**
+     * @param int $stickerId
+     * @return StickerTemplate
+     */
+    public static function createDaily($stickerId)
     {
-        return new self(4, $stickerId);
+        $self = new self();
+        $self->packageId = 4;
+        $self->stickerId = $stickerId;
+
+        return $self;
     }
 }
