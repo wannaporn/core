@@ -9,18 +9,18 @@ class AudioTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    public $audioUrl;
+    public $url;
 
     /**
      * @var int
      */
-    public $audioDuration;
+    public $duration;
 
     /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        return new AudioMessageBuilder($this->audioUrl, $this->audioDuration);
+        return new AudioMessageBuilder($this->url, $this->duration);
     }
 }
