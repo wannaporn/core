@@ -1,7 +1,12 @@
 <?php
 
-/**
- * Copyright 2017 Intelligence Business (Thailand) Co.,Ltd.
+/*
+ * This file is part of the PhpMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace LineMob\Core\Template;
