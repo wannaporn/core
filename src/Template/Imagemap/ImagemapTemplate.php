@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core\Template\Imagemap;
 
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
@@ -8,6 +17,9 @@ use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
 use LineMob\Core\Template\AbstractTemplate;
 
+/**
+ * @author WATCHDOGS <godoakbrutal@gmail.com>
+ */
 class ImagemapTemplate extends AbstractTemplate
 {
     /**
@@ -59,7 +71,7 @@ class ImagemapTemplate extends AbstractTemplate
 
     /**
      * @param ActionArea $area
-     * @param $link
+     * @param string $link
      */
     public function addLinkAction($link, ActionArea $area)
     {
@@ -68,7 +80,7 @@ class ImagemapTemplate extends AbstractTemplate
 
     /**
      * @param ActionArea $area
-     * @param $text
+     * @param string $text
      */
     public function addMessageAction($text, ActionArea $area)
     {
