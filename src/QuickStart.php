@@ -23,6 +23,7 @@ use LineMob\Core\Message\AudioMessage;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\ImagemapMessage;
 use LineMob\Core\Message\ImageMessage;
+use LineMob\Core\Message\StickerMessage;
 use LineMob\Core\Message\TextMessage;
 use LineMob\Core\Message\VideoMessage;
 
@@ -98,6 +99,7 @@ class QuickStart
         $factory->add(new ImageMessage());
         $factory->add(new ImagemapMessage());
         $factory->add(new TextMessage());
+        $factory->add(new StickerMessage());
         $factory->add(new AudioMessage());
         $factory->add(new VideoMessage());
 
