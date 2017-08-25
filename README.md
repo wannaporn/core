@@ -18,3 +18,6 @@ A rapid line bot builder library - in php.
       - [ ] Button
       - [ ] Confirm
   - [ ] Writing spec tests.
+
+## LICENSE
+[MIT](LICENSE)
