@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the PhpMob package.
+ * This file is part of the LineMob package.
  *
  * (c) Ishmael Doss <nukboon@gmail.com>
  *
@@ -14,7 +14,7 @@ namespace LineMob\Core\Template;
 use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
 
 /**
- * @author Taned Suparpornhemin <taned@intbizth.com>
+ * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
 class StickerTemplate extends AbstractTemplate
 {
