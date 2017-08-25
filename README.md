@@ -9,10 +9,12 @@ A rapid line bot builder library - in php.
   - [ ] Add more line message template.
       - [x] Text
       - [x] Carousel
-      - [ ] Video
-      - [ ] Audio
-      - [ ] Sticker
+      - [x] Video
+      - [x] Audio
+      - [x] Sticker
       - [x] Image
-      - [ ] ImageMap
-      - [ ] Link
+      - [x] ImageMap
+      - [x] Link
+      - [ ] Button
+      - [ ] Confirm
   - [ ] Writing spec tests.
