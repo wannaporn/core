@@ -11,12 +11,12 @@
 
 namespace LineMob\Core\Template;
 
-use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\VideoMessageBuilder;
 
 /**
- * @author Ishmael Doss <nukboon@gmail.com>
+ * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class ImageTemplate extends AbstractTemplate
+class VideoTemplate extends AbstractTemplate
 {
     /**
      * @var string
@@ -26,13 +26,13 @@ class ImageTemplate extends AbstractTemplate
     /**
      * @var string
      */
-    public $previewUrl;
+    public $posterUrl;
 
     /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        return new ImageMessageBuilder($this->url, $this->previewUrl);
+        return new VideoMessageBuilder($this->url, $this->posterUrl);
     }
 }

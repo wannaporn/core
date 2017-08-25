@@ -11,12 +11,12 @@
 
 namespace LineMob\Core\Template;
 
-use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\AudioMessageBuilder;
 
 /**
- * @author Ishmael Doss <nukboon@gmail.com>
+ * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class ImageTemplate extends AbstractTemplate
+class AudioTemplate extends AbstractTemplate
 {
     /**
      * @var string
@@ -24,15 +24,15 @@ class ImageTemplate extends AbstractTemplate
     public $url;
 
     /**
-     * @var string
+     * @var int
      */
-    public $previewUrl;
+    public $duration;
 
     /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        return new ImageMessageBuilder($this->url, $this->previewUrl);
+        return new AudioMessageBuilder($this->url, $this->duration);
     }
 }

@@ -9,22 +9,21 @@
  * file that was distributed with this source code.
  */
 
-
 namespace LineMob\Core\Message;
 
 use LineMob\Core\Command\AbstractCommand;
-use LineMob\Core\Template\Carousel\CarouselTemplate;
+use LineMob\Core\Template\VideoTemplate;
 
 /**
- * @author Ishmael Doss <nukboon@gmail.com>
+ * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class CarouselMessage extends AbstractMessage
+class VideoMessage extends AbstractMessage
 {
     /**
      * {@inheritdoc}
      */
     public function supported(AbstractCommand $command)
     {
-        return $command->message instanceof CarouselTemplate;
+        return $command->message instanceof VideoTemplate;
     }
 }
