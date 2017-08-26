@@ -21,7 +21,7 @@ use LineMob\Core\Factory\MessageFactory;
 use LineMob\Core\HttpClient\GuzzleHttpClient;
 use LineMob\Core\Message\AudioMessage;
 use LineMob\Core\Message\CarouselMessage;
-use LineMob\Core\Message\ImagemMapMessage;
+use LineMob\Core\Message\ImageMapMessage;
 use LineMob\Core\Message\ImageMessage;
 use LineMob\Core\Message\LocationMessage;
 use LineMob\Core\Message\StickerMessage;
@@ -98,7 +98,7 @@ class QuickStart
 
         $factory->add(new CarouselMessage());
         $factory->add(new ImageMessage());
-        $factory->add(new ImagemMapMessage());
+        $factory->add(new ImageMapMessage());
         $factory->add(new TextMessage());
         $factory->add(new LocationMessage());
         $factory->add(new StickerMessage());

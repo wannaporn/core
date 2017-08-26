@@ -12,18 +12,18 @@
 namespace LineMob\Core\Message;
 
 use LineMob\Core\Command\AbstractCommand;
-use LineMob\Core\Template\ImagemMap\ImagemMapTemplate;
+use LineMob\Core\Template\ImageMap\ImageMapTemplate;
 
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class ImagemMapMessage extends AbstractMessage
+class ImageMapMessage extends AbstractMessage
 {
     /**
      * {@inheritdoc}
      */
     public function supported(AbstractCommand $command)
     {
-        return $command->message instanceof ImagemMapTemplate;
+        return $command->message instanceof ImageMapTemplate;
     }
 }

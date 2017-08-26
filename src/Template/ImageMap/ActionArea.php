@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Template\ImagemMap;
+namespace LineMob\Core\Template\ImageMap;
 
-use LINE\LINEBot\ImagemMapActionBuilder\AreaBuilder;
+use LINE\LINEBot\ImageMapActionBuilder\AreaBuilder;
 
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>
