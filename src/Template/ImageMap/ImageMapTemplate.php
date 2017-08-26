@@ -13,8 +13,8 @@ namespace LineMob\Core\Template\ImageMap;
 
 use LINE\LINEBot\ImageMapActionBuilder\ImageMapMessageActionBuilder;
 use LINE\LINEBot\ImageMapActionBuilder\ImageMapUriActionBuilder;
-use LINE\LINEBot\MessageBuilder\ImageMap\BaseSizeBuilder;
-use LINE\LINEBot\MessageBuilder\ImageMapMessageBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
 use LineMob\Core\Template\AbstractTemplate;
 
 /**
