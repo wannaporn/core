@@ -11,8 +11,8 @@
 
 namespace LineMob\Core\Template\ImageMap;
 
-use LINE\LINEBot\ImagemapActionBuilder\ImageMapMessageActionBuilder;
-use LINE\LINEBot\ImagemapActionBuilder\ImageMapUriActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
 use LineMob\Core\Template\AbstractTemplate;
