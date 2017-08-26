@@ -10,7 +10,7 @@ final class Constants
     const TYPE_STICKER = 'sticker';
     const TYPE_CAROUSEL = 'carousel';
     const TYPE_IMAGE = 'image';
-    const TYPE_IMAGEMAP = 'imagemap';
+    const TYPE_IMAGE_MAP = 'image_map';
 
     const MODE_REPLY = 'reply';
     const MODE_PUSH = 'push';

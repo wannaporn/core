@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Template\Imagemap;
+namespace LineMob\Core\Template\ImagemMap;
 
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>

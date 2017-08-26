@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Template\Imagemap;
+namespace LineMob\Core\Template\ImagemMap;
 
-use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
-use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
-use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
-use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
+use LINE\LINEBot\ImagemMapActionBuilder\ImagemMapMessageActionBuilder;
+use LINE\LINEBot\ImagemMapActionBuilder\ImagemMapUriActionBuilder;
+use LINE\LINEBot\MessageBuilder\ImagemMap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\ImagemMapMessageBuilder;
 use LineMob\Core\Template\AbstractTemplate;
 
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class ImagemapTemplate extends AbstractTemplate
+class ImagemMapTemplate extends AbstractTemplate
 {
     /**
      * @var string
@@ -58,15 +58,15 @@ class ImagemapTemplate extends AbstractTemplate
         foreach ($this->actions as $action) {
             switch ($action->type) {
                 case Action::TYPE_URI:
-                    $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
+                    $actions[] = new ImagemMapUriActionBuilder($action->link, $action->area->getArea());
                     break;
                 case Action::TYPE_MESSAGE:
-                    $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
+                    $actions[] = new ImagemMapMessageActionBuilder($action->text, $action->area->getArea());
                     break;
             }
         }
 
-        return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
+        return new ImagemMapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
     }
 
     /**
