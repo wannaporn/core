@@ -11,8 +11,8 @@
 
 namespace LineMob\Core\Template\ImageMap;
 
-use LINE\LINEBot\ImageMapActionBuilder\ImageMapMessageActionBuilder;
-use LINE\LINEBot\ImageMapActionBuilder\ImageMapUriActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImageMapMessageActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImageMapUriActionBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
 use LineMob\Core\Template\AbstractTemplate;
@@ -58,15 +58,15 @@ class ImageMapTemplate extends AbstractTemplate
         foreach ($this->actions as $action) {
             switch ($action->type) {
                 case Action::TYPE_URI:
-                    $actions[] = new ImageMapUriActionBuilder($action->link, $action->area->getArea());
+                    $actions[] = new ImagemapUriActionBuilder($action->link, $action->area->getArea());
                     break;
                 case Action::TYPE_MESSAGE:
-                    $actions[] = new ImageMapMessageActionBuilder($action->text, $action->area->getArea());
+                    $actions[] = new ImagemapMessageActionBuilder($action->text, $action->area->getArea());
                     break;
             }
         }
 
-        return new ImageMapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
+        return new ImagemapMessageBuilder($this->baseUrl, $this->altText, $baseSize, $actions);
     }
 
     /**

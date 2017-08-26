@@ -11,7 +11,7 @@
 
 namespace LineMob\Core\Template\ImageMap;
 
-use LINE\LINEBot\ImageMapActionBuilder\AreaBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
 
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>
