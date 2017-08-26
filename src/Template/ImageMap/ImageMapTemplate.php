@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Template\Imagemap;
+namespace LineMob\Core\Template\ImageMap;
 
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
@@ -20,7 +20,7 @@ use LineMob\Core\Template\AbstractTemplate;
 /**
  * @author WATCHDOGS <godoakbrutal@gmail.com>
  */
-class ImagemapTemplate extends AbstractTemplate
+class ImageMapTemplate extends AbstractTemplate
 {
     /**
      * @var string

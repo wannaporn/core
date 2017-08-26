@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Template\Imagemap;
+namespace LineMob\Core\Template\ImageMap;
 
 use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
 
