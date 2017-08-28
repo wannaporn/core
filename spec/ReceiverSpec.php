@@ -3,7 +3,7 @@
 namespace spec\LineMob\Core;
 
 use League\Tactician\CommandBus;
-use LINE\LINEBot;
+use LineMob\Core\LineBot;
 use LineMob\Core\Receiver;
 use LineMob\Core\RegistryInterface;
 use PhpSpec\ObjectBehavior;
@@ -13,7 +13,7 @@ use PhpSpec\ObjectBehavior;
  */
 class ReceiverSpec extends ObjectBehavior
 {
-    function let(LINEBot $bot, RegistryInterface $registry, CommandBus $bus)
+    function let(LineBot $bot, RegistryInterface $registry, CommandBus $bus)
     {
         $this->beConstructedWith($bot, $registry, $bus);
     }
