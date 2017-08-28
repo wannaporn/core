@@ -39,6 +39,8 @@ class ConfirmTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
+        ksort($this->actions);
+
         return new TemplateMessageBuilder(
             $this->altText,
             new ConfirmTemplateBuilder($this->title, $this->actions)
@@ -53,7 +55,7 @@ class ConfirmTemplate extends AbstractTemplate
     public function addLeftButtonAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
     {
         $templateAction = new TemplateAction($label);
-        $this->actions[] = $templateAction->buildTemplateAction($text, $type);
+        $this->actions[0] = $templateAction->buildTemplateAction($text, $type);
     }
 
     /**
@@ -64,6 +66,6 @@ class ConfirmTemplate extends AbstractTemplate
     public function addRightButtonAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
     {
         $templateAction = new TemplateAction($label);
-        $this->actions[] = $templateAction->buildTemplateAction($text, $type);
+        $this->actions[1] = $templateAction->buildTemplateAction($text, $type);
     }
 }
