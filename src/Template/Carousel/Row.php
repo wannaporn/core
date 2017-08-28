@@ -39,7 +39,7 @@ class Row
 
     public function __construct($title, $text, $thumbnail, array $actions = [])
     {
-        $this->label = $title;
+        $this->title = $title;
         $this->text = $text;
         $this->thumbnail = $thumbnail;
 
