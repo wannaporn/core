@@ -14,6 +14,7 @@ namespace LineMob\Core\Template\Carousel;
 
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LineMob\Core\Template\AbstractTemplate;
 
@@ -26,6 +27,11 @@ class CarouselTemplate extends AbstractTemplate
      * @var Row[]
      */
     public $rows;
+
+    /**
+     * @var string
+     */
+    public $altText = 'This is carousel template.';
 
     /**
      * {@inheritdoc}
@@ -48,7 +54,7 @@ class CarouselTemplate extends AbstractTemplate
             );
         }
 
-        return new CarouselTemplateBuilder($rows);
+        return new TemplateMessageBuilder($this->altText, new CarouselTemplateBuilder($rows));
     }
 
     /**
