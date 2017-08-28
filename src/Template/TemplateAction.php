@@ -29,11 +29,6 @@ class TemplateAction
      */
     public $label;
 
-    /**
-     * @var string
-     */
-    public $type;
-
     public function __construct($label)
     {
         $this->label = $label;
