@@ -23,7 +23,8 @@ Command ถูกสร้างขึ้นโดยคุณ และถู�
 
 use LineMob\Core\Command\AbstractCommand;
 
-class YourCommand extends AbstractCommand {
+class YourCommand extends AbstractCommand
+{
     
 }
 
@@ -37,7 +38,8 @@ class YourCommand extends AbstractCommand {
 
 use LineMob\Core\Command\AbstractCommand;
 
-class YourCommand extends AbstractCommand {
+class YourCommand extends AbstractCommand
+{
     protected $cmd = ':mycommand';
 }
 
