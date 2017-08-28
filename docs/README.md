@@ -8,9 +8,10 @@ LineMob Core ถูกออกแบบโดยใช้ Command/Query Pattern
 
 ### Command
 `Command` คือ ​Object ที่เก็บข้อมูล (Information) ต่างๆ โดยพื้นฐานแล้ว `Command` คือข้อมูลที่ประกอบใน `คำสั่ง` ที่ใช้บอกให้ `handler` ว่าต้องการให้ทำงานอะไร
-ในที่นี้เราจะใช้ Command เพื่อวัตถุประสงค์ 2 อย่างคือ
+ในที่นี้เราจะใช้ Command เพื่อวัตถุประสงค์ 3 อย่างคือ
   1. ใช้เก็บสถานะ (State) ระหว่างการประมวลผลในระดับ Business Logic คือในระหว่างที่ Command ถูกส่งไปยัง Handler เราจะเก็บสถานะอะไรไว้ระหว่างนั้นก็ได้ สิ่งนี้เราจะเห็นภาพชัดเจนในหัวข้อของ `Middleware`
-  2. ใช้เก็บคำสั่ง (Message) ที่ Handler ต้องการ ในที่นี้คือ message ที่ต้องส่งไปยัง Line API เป็นข้อมูลตามมาตรฐานของ ​Line API และ LineMob Core ได้สร้างชุด Class Message Templates ง่ายๆ สำหรับการสร้าง message ดังกล่าว 
+  2. ใช้เก็บคำสั่ง (Message) ที่ Handler ต้องการ ในที่นี้คือ message ที่ต้องส่งไปยัง Line API เป็นข้อมูลตามมาตรฐานของ ​Line API และ LineMob Core ได้สร้างชุด Class Message Templates ง่ายๆ สำหรับการสร้าง message ดังกล่าว
+  3. ใช้เก็บ `input` หรือ Request information ที่ถูกส่งมาจาก Line APP.
 
 Command ถูกสร้างขึ้นโดยคุณ และถูกเรียกใช้โดย LineMob Core มีสิ่งที่คุณเข้าใจอีกเล็กน้อยเกี่ยวกับ Command คือ มันทำงานใกล้เคียงกับ `Client/Server` ดังนั้น เมื่อ Command ถูกสร้างขึ้นโดย ​LineMob Core มันจะทำการเก็บข้อมูลที่ได้รับจาก Line APP ไว้ใน Property `input` เปรียบเสมือนเป็น `request` ใน Client/Server
 
