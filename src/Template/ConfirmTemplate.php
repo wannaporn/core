@@ -13,7 +13,6 @@ namespace LineMob\Core\Template;
 
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
@@ -49,18 +48,22 @@ class ConfirmTemplate extends AbstractTemplate
     /**
      * @param string $label
      * @param string $text
+     * @param string $type
      */
-    public function addLeftButtonAction($label = 'Yes', $text = 'yes')
+    public function addLeftButtonAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $this->actions[] = new MessageTemplateActionBuilder($label, $text);
+        $templateAction = new TemplateAction($label);
+        $this->actions[] = $templateAction->buildTemplateAction($text, $type);
     }
 
     /**
      * @param string $label
      * @param string $text
+     * @param string $type
      */
-    public function addRightButtonAction($label = 'No', $text = 'no')
+    public function addRightButtonAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $this->actions[] = new MessageTemplateActionBuilder($label, $text);
+        $templateAction = new TemplateAction($label);
+        $this->actions[] = $templateAction->buildTemplateAction($text, $type);
     }
 }
