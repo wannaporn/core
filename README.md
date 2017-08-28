@@ -1,6 +1,9 @@
 # core
 A rapid line bot builder library - in php.
 
+## Documentation
+อ่านการใช้งานเบื้องต้นที่ [Documentation](docs/README.md)
+
 ## Demo Bots
   - [Very simple `Say, Hi!` bot](https://github.com/linemob/bot-sayhi)
   - [Google Translation bot](https://github.com/linemob/bot-translation)
