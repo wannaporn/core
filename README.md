@@ -22,5 +22,10 @@ A rapid line bot builder library - in php.
       - [ ] Confirm
   - [ ] Writing spec tests.
 
+## Tests
+```bash
+$ ./bin/phpspec run -fpretty
+```
+
 ## LICENSE
 [MIT](LICENSE)
