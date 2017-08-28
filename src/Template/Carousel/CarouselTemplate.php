@@ -54,7 +54,6 @@ class CarouselTemplate extends AbstractTemplate
             );
         }
 
-        // alt จะแสดงเป็น title ของ template เช่น กรณี template ไม่ support การใช้งานบน PC
         return new TemplateMessageBuilder($this->altText, new CarouselTemplateBuilder($rows));
     }
 
