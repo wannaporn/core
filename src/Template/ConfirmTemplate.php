@@ -13,6 +13,9 @@ namespace LineMob\Core\Template;
 
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
@@ -39,11 +42,26 @@ class ConfirmTemplate extends AbstractTemplate
      */
     public function getTemplate()
     {
+        $actions = [];
         ksort($this->actions);
+
+        /** @var TemplateAction $action */
+        foreach ($this->actions as $action) {
+            switch (strtolower($action->type)) {
+                case TemplateAction::TYPE_POSTBACK:
+                    $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
+                    break;
+                case TemplateAction::TYPE_URI:
+                    $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
+                    break;
+                default:
+                    $actions[] =  new MessageTemplateActionBuilder($action->label, $action->value);;
+            }
+        }
 
         return new TemplateMessageBuilder(
             $this->altText,
-            new ConfirmTemplateBuilder($this->title, $this->actions)
+            new ConfirmTemplateBuilder($this->title, $actions)
         );
     }
 
@@ -52,10 +70,9 @@ class ConfirmTemplate extends AbstractTemplate
      * @param string $text
      * @param string $type
      */
-    public function addLeftButtonAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
+    public function addYesAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $templateAction = new TemplateAction();
-        $this->actions[0] = $templateAction->buildTemplateAction($label, $text, $type);
+        $this->actions[0] = new TemplateAction($label, $text, $type);
     }
 
     /**
@@ -63,9 +80,8 @@ class ConfirmTemplate extends AbstractTemplate
      * @param string $text
      * @param string $type
      */
-    public function addRightButtonAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
+    public function addNoAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $templateAction = new TemplateAction();
-        $this->actions[1] = $templateAction->buildTemplateAction($label, $text, $type);
+        $this->actions[1] = new TemplateAction($label, $text, $type);
     }
 }
