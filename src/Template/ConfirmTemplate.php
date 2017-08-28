@@ -54,8 +54,8 @@ class ConfirmTemplate extends AbstractTemplate
      */
     public function addLeftButtonAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $templateAction = new TemplateAction($label);
-        $this->actions[0] = $templateAction->buildTemplateAction($text, $type);
+        $templateAction = new TemplateAction();
+        $this->actions[0] = $templateAction->buildTemplateAction($label, $text, $type);
     }
 
     /**
@@ -65,7 +65,7 @@ class ConfirmTemplate extends AbstractTemplate
      */
     public function addRightButtonAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
     {
-        $templateAction = new TemplateAction($label);
-        $this->actions[1] = $templateAction->buildTemplateAction($text, $type);
+        $templateAction = new TemplateAction();
+        $this->actions[1] = $templateAction->buildTemplateAction($label, $text, $type);
     }
 }

@@ -25,65 +25,56 @@ class TemplateAction
     const TYPE_POSTBACK = 'postback';
 
     /**
-     * @var string
-     */
-    public $label;
-
-    /**
-     * @param $label
-     */
-    public function __construct($label)
-    {
-        $this->label = $label;
-    }
-
-    /**
+     * @param string $label
      * @param string $value
      * @param string $type
      *
      * @return mixed
      */
-    public function buildTemplateAction($value, $type = self::TYPE_MESSAGE)
+    public function buildTemplateAction($label, $value, $type = self::TYPE_MESSAGE)
     {
         switch ($type) {
             case self::TYPE_POSTBACK:
-                return $this->createPostbackTemplateAction($value);
+                return $this->createPostbackTemplateAction($label, $value);
                 break;
             case self::TYPE_URI:
-                return $this->createUriTemplateAction($value);
+                return $this->createUriTemplateAction($label, $value);
                 break;
             default:
-                return $this->createMessageTemplateAction($value);
+                return $this->createMessageTemplateAction($label, $value);
         }
     }
 
     /**
+     * @param string $label
      * @param string $text
      *
      * @return MessageTemplateActionBuilder
      */
-    private function createMessageTemplateAction($text)
+    private function createMessageTemplateAction($label, $text)
     {
-        return new MessageTemplateActionBuilder($this->label, $text);
+        return new MessageTemplateActionBuilder($label, $text);
     }
 
     /**
+     * @param string $label
      * @param string $link
      *
      * @return UriTemplateActionBuilder
      */
-    private function createUriTemplateAction($link)
+    private function createUriTemplateAction($label, $link)
     {
-        return new UriTemplateActionBuilder($this->label, $link);
+        return new UriTemplateActionBuilder($label, $link);
     }
 
     /**
+     * @param string $label
      * @param string $data
      *
      * @return PostbackTemplateActionBuilder
      */
-    private function createPostbackTemplateAction($data)
+    private function createPostbackTemplateAction($label, $data)
     {
-        return new PostbackTemplateActionBuilder($this->label, $data);
+        return new PostbackTemplateActionBuilder($label, $data);
     }
 }

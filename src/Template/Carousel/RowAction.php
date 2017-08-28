@@ -12,6 +12,8 @@
 
 namespace LineMob\Core\Template\Carousel;
 
+use LineMob\Core\Template\TemplateAction;
+
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
@@ -25,11 +27,17 @@ class RowAction
     /**
      * @var string
      */
-    public $link;
+    public $value;
 
-    public function __construct($label, $link)
+    /**
+     * @var string
+     */
+    public $type;
+
+    public function __construct($label, $value, $type = TemplateAction::TYPE_MESSAGE)
     {
         $this->label = $label;
-        $this->link = $link;
+        $this->value = $value;
+        $this->type = $type;
     }
 }

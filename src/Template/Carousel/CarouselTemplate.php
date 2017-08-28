@@ -17,6 +17,7 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LineMob\Core\Template\AbstractTemplate;
+use LineMob\Core\Template\TemplateAction;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -39,12 +40,13 @@ class CarouselTemplate extends AbstractTemplate
     public function getTemplate()
     {
         $rows = [];
+        $templateAction = new TemplateAction();
 
         foreach ($this->rows as $row) {
             $actions = [];
 
             foreach ($row->actions as $action) {
-                $actions[] = new UriTemplateActionBuilder($action->label, $action->link);
+                $actions[] = $templateAction->buildTemplateAction($action->label, $action->value, $action->type);
             }
 
             $rows[] = new CarouselColumnTemplateBuilder(
