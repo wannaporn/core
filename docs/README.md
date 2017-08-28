@@ -151,6 +151,7 @@ class TextMessageMiddleware implements Middleware
 ### Handler
 `Handler` คือ ​Object Service ที่ทำหน้าที่ส่งข้อมูลไปยัง Line API Server ส่วนนี้คุณไม่ต้องโปรแกรมอะไร เป็นหน้าที่ของ LineMob Core
 
+### Setup
 การ Setup `Command/Middleware` ดูตัวอย่างใน `\LineMob\Core\QuickStart::setup` ส่วนตัวอย่างการ setup แบบง่ายคือ ดังนี้
 
 ```php
