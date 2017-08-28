@@ -29,11 +29,20 @@ class TemplateAction
      */
     public $label;
 
+    /**
+     * @param $label
+     */
     public function __construct($label)
     {
         $this->label = $label;
     }
 
+    /**
+     * @param string $value
+     * @param string $type
+     *
+     * @return mixed
+     */
     public function buildTemplateAction($value, $type = self::TYPE_MESSAGE)
     {
         switch ($type) {
