@@ -20,6 +20,7 @@ use League\Tactician\Plugins\LockingMiddleware;
 use LineMob\Core\Factory\MessageFactory;
 use LineMob\Core\HttpClient\GuzzleHttpClient;
 use LineMob\Core\Message\AudioMessage;
+use LineMob\Core\Message\ButtonsMessage;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\ConfirmMessage;
 use LineMob\Core\Message\ImageMapMessage;
@@ -106,6 +107,7 @@ class QuickStart
         $factory->add(new AudioMessage());
         $factory->add(new VideoMessage());
         $factory->add(new ConfirmMessage());
+        $factory->add(new ButtonsMessage());
 
         return new Receiver($linebot, $registry, new CommandBus($this->middlewares));
     }
