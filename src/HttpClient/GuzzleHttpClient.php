@@ -59,6 +59,7 @@ class GuzzleHttpClient implements HttpClientInterface
         return new Response(
             $response->getStatusCode(),
             $response->getBody()->getContents(),
+            /** @scrutinizer ignore-type */
             $response->getHeaders()
         );
     }

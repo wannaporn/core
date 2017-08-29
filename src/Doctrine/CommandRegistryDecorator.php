@@ -135,7 +135,7 @@ class CommandRegistryDecorator implements RegistryInterface
         $command = $this->findCommandWithModel($input);
 
         if ($user = $this->findUser($input->userId)) {
-            if ($activeCmd = $user->getLineActivedCmd()) {
+            if ($activeCmd = $user->getLineActiveCmd()) {
 
                 // no side effect input
                 $copiedInput = new Input(['text' => $activeCmd]);

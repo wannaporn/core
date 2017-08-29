@@ -32,7 +32,7 @@ class DummyStorageConnectMiddleware implements Middleware
         $command->merge($storage->getLineCommandData());
 
         $storage->setLineUserId($command->input->userId);
-        $storage->setLineActiveCmd($command->cmd);
+        $storage->setLineActiveCmd($command->getCmd());
 
         return $next($command);
     }

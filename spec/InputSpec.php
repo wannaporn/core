@@ -10,37 +10,25 @@ use PhpSpec\ObjectBehavior;
  */
 class InputSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function let()
+    {
+        $this->beConstructedWith(['text' => 'foo']);
+    }
+
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Input::class);
     }
 
-    function it_can_be_string()
+    public function it_can_be_string()
     {
-        $this->text = 'foo';
         $this->__toString()->shouldBe('foo');
     }
 
-    function it_be_serializable()
+    public function it_be_frozen()
     {
-        $this->text = 'foo';
-        $this->userId = 'bar';
-
-        $this->serialize()->shouldReturn(serialize([
-            'text' => 'foo',
-            'userId' => 'bar',
-            'replyToken' => null,
-        ]));
-    }
-
-    function it_be_unserializable()
-    {
-        $this->unserialize(serialize([
-            'text' => 'foo',
-            'userId' => null,
-            'replyToken' => null,
-        ]));
-
-        $this->__toString()->shouldBe('foo');
+        $this
+            ->shouldThrow(new \LogicException('Impossible to set on a frozen input.'))
+            ->during('__set', ['text', 'bar']);
     }
 }

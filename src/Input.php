@@ -25,9 +25,11 @@ class Input
      */
     private $data = [];
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
-        $data['text'] = trim(preg_replace(['/ +/'], [' '], $data['text']));
+        if (array_key_exists('text', $data)) {
+            $data['text'] = trim(preg_replace(['/ +/'], [' '], $data['text']));
+        }
 
         $this->data = $data;
     }

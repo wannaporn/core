@@ -31,7 +31,7 @@ class StoreActiveCmdMiddleware implements Middleware
                 throw new \RuntimeException("Require storage before using this middleware!");
             }
 
-            $command->storage->setLineActiveCmd($command->cmd);
+            $command->storage->setLineActiveCmd($command->getCmd());
         }
 
         return $next($command);

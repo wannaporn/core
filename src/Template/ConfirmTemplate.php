@@ -11,17 +11,13 @@
 
 namespace LineMob\Core\Template;
 
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
-use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
-
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
  */
 class ConfirmTemplate extends AbstractTemplate
 {
+    use ActionTemplateTrait;
+
     /**
      * @var string
      */
@@ -36,34 +32,6 @@ class ConfirmTemplate extends AbstractTemplate
      * @var Action[]
      */
     public $actions = [];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        $actions = [];
-        ksort($this->actions);
-
-        /** @var Action $action */
-        foreach ($this->actions as $action) {
-            switch (strtolower($action->type)) {
-                case Action::TYPE_POSTBACK:
-                    $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
-                    break;
-                case Action::TYPE_URI:
-                    $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
-                    break;
-                default:
-                    $actions[] =  new MessageTemplateActionBuilder($action->label, $action->value);;
-            }
-        }
-
-        return new TemplateMessageBuilder(
-            $this->altText,
-            new ConfirmTemplateBuilder($this->title, $actions)
-        );
-    }
 
     /**
      * @param string $label

@@ -23,7 +23,7 @@ abstract class AbstractTemplate implements TemplateInterface
     /**
      * {@inheritdoc}
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this;
     }

@@ -73,7 +73,7 @@ class CarouselTemplate extends AbstractTemplate
      * @param string $title
      * @param string $text
      * @param string $thumbnail
-     * @param [{'label', 'value', 'type'}]|Action[] $actions
+     * @param array|Action[] $actions
      */
     public function addRow($title, $text, $thumbnail, array $actions = [])
     {
