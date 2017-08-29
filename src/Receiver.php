@@ -52,33 +52,33 @@ class Receiver
         $results = [];
 
         foreach ($events as $event) {
-            $input = new Input();
-            $input->replyToken = @$event['replyToken'];
-            $input->userId = @$event['source']['userId'];
+            $input = [];
+            $input['replyToken'] = @$event['replyToken'];
+            $input['userId'] = @$event['source']['userId'];
 
-            if (!$input->userId) {
+            if (!$input['userId']) {
                 throw new \RuntimeException("Require `userId` to run.");
             }
 
             if (Constants::REVEIVE_TYPE_FOLLOW === @$event['type']) {
-                $input->text = ':follow';
+                $input['text'] = ':follow';
             }
 
             if (Constants::REVEIVE_TYPE_MESSAGE === @$event['type']) {
                 if (Constants::REVEIVE_TYPE_MESSAGE_TEXT === @$event['message']['type']) {
-                    $input->text = @$event['message']['text'];
+                    $input['text'] = @$event['message']['text'];
                 }
 
                 // TODO: support other type
             }
 
-            if (!$input->text) {
-                $input->text = FallbackCommand::CMD;
+            if (!$input['text']) {
+                $input['text'] = FallbackCommand::CMD;
             }
 
             try {
                 $results[] = $this->commandBus->handle(
-                    $this->registry->findCommand($input)
+                    $this->registry->findCommand(new Input($input))
                 );
             } catch (\Exception $e) {
                 $results[] = sprintf('ERROR: %s', $e->getMessage());
