@@ -1,8 +1,20 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core\Storage;
 
-class CommandStorage implements CommandStorageInterface
+/**
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
+class CommandData implements CommandDataInterface
 {
     /**
      * @var string
@@ -12,7 +24,7 @@ class CommandStorage implements CommandStorageInterface
     /**
      * @var string
      */
-    private $lineActivedCmd;
+    private $lineActiveCmd;
 
     /**
      * @var array
@@ -38,17 +50,17 @@ class CommandStorage implements CommandStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function getLineActivedCmd()
+    public function getLineActiveCmd()
     {
-        return $this->lineActivedCmd;
+        return $this->lineActiveCmd;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setLineActivedCmd($lineActivedCmd)
+    public function setLineActiveCmd($lineActiveCmd)
     {
-        $this->lineActivedCmd = $lineActivedCmd;
+        $this->lineActiveCmd = $lineActiveCmd;
     }
 
     /**

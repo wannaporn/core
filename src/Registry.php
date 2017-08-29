@@ -1,9 +1,21 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core;
 
 use LineMob\Core\Command\AbstractCommand;
 
+/**
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
 class Registry implements RegistryInterface
 {
     /**
@@ -43,13 +55,15 @@ class Registry implements RegistryInterface
     {
         foreach (array_keys($this->commands) as $command) {
             /** @var AbstractCommand $cmd */
-            $cmd = new $command(['input' => $input]);
+            $cmd = new $command();
 
             if ($cmd->supported($input->text)) {
                 return $cmd;
             }
         }
 
-        return new $this->defaultCommand(['input' => $input]);
+        $cmd = new $this->defaultCommand();
+
+        return $cmd;
     }
 }
