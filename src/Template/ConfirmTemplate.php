@@ -33,7 +33,7 @@ class ConfirmTemplate extends AbstractTemplate
     public $title = 'Are You sure?';
 
     /**
-     * @var array
+     * @var Action[]
      */
     public $actions = [];
 
@@ -45,13 +45,13 @@ class ConfirmTemplate extends AbstractTemplate
         $actions = [];
         ksort($this->actions);
 
-        /** @var TemplateAction $action */
+        /** @var Action $action */
         foreach ($this->actions as $action) {
             switch (strtolower($action->type)) {
-                case TemplateAction::TYPE_POSTBACK:
+                case Action::TYPE_POSTBACK:
                     $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
                     break;
-                case TemplateAction::TYPE_URI:
+                case Action::TYPE_URI:
                     $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
                     break;
                 default:
@@ -70,9 +70,9 @@ class ConfirmTemplate extends AbstractTemplate
      * @param string $text
      * @param string $type
      */
-    public function addYesAction($label = 'Yes', $text = 'yes', $type = TemplateAction::TYPE_MESSAGE)
+    public function addYesAction($label = 'Yes', $text = 'yes', $type = Action::TYPE_MESSAGE)
     {
-        $this->actions[0] = new TemplateAction($label, $text, $type);
+        $this->actions[0] = new Action($label, $text, $type);
     }
 
     /**
@@ -80,8 +80,8 @@ class ConfirmTemplate extends AbstractTemplate
      * @param string $text
      * @param string $type
      */
-    public function addNoAction($label = 'No', $text = 'no', $type = TemplateAction::TYPE_MESSAGE)
+    public function addNoAction($label = 'No', $text = 'no', $type = Action::TYPE_MESSAGE)
     {
-        $this->actions[1] = new TemplateAction($label, $text, $type);
+        $this->actions[1] = new Action($label, $text, $type);
     }
 }

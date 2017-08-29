@@ -12,7 +12,7 @@
 
 namespace LineMob\Core\Template\Carousel;
 
-use LineMob\Core\Template\TemplateAction;
+use LineMob\Core\Template\Action;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -35,7 +35,7 @@ class Row
     public $title;
 
     /**
-     * @var TemplateAction[]
+     * @var Action[]
      */
     public $actions;
 
@@ -46,8 +46,8 @@ class Row
         $this->thumbnail = $thumbnail;
 
         foreach ($actions as $action) {
-            if (!$action instanceof TemplateAction) {
-                $action = new TemplateAction($action['label'], $action['value']);
+            if (!$action instanceof Action) {
+                $action = new Action($action['label'], $action['value']);
             }
 
             $this->actions[] = $action;
@@ -60,6 +60,6 @@ class Row
      */
     public function addAction($text, $value)
     {
-        $this->actions[] = new TemplateAction($text, $value);
+        $this->actions[] = new Action($text, $value);
     }
 }

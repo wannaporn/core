@@ -14,7 +14,7 @@ namespace LineMob\Core\Template;
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
  */
-class TemplateAction
+class Action
 {
     const TYPE_MESSAGE = 'message';
     const TYPE_URI = 'uri';

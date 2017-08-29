@@ -43,7 +43,7 @@ class ButtonsTemplate extends AbstractTemplate
     public $thumbnail;
 
     /**
-     * @var array
+     * @var Action[]
      */
     public $actions = [];
 
@@ -56,10 +56,10 @@ class ButtonsTemplate extends AbstractTemplate
 
         foreach ($this->actions as $action) {
             switch (strtolower($action->type)) {
-                case TemplateAction::TYPE_POSTBACK:
+                case Action::TYPE_POSTBACK:
                     $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
                     break;
-                case TemplateAction::TYPE_URI:
+                case Action::TYPE_URI:
                     $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
                     break;
                 default:
@@ -78,8 +78,8 @@ class ButtonsTemplate extends AbstractTemplate
      * @param $value
      * @param $type
      */
-    public function addAction($text, $value, $type = TemplateAction::TYPE_MESSAGE)
+    public function addAction($text, $value, $type = Action::TYPE_MESSAGE)
     {
-        $this->actions[] = new TemplateAction($text, $value, $type);
+        $this->actions[] = new Action($text, $value, $type);
     }
 }
