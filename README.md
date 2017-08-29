@@ -1,5 +1,6 @@
 # LineMob Core
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/linemob/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/linemob/core/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/linemob/core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/linemob/core/build-status/master)
 
 A rapid line bot builder library - in php.
 
