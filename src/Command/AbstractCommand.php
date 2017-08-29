@@ -1,32 +1,77 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core\Command;
 
 use LineMob\Core\Input;
-use LineMob\Core\Storage\CommandStorageInterface;
+use LineMob\Core\Storage\CommandDataInterface;
 use LineMob\Core\Template\TemplateInterface;
-use LineMob\Core\Template\TextTemplate;
 
 /**
- * Class AbstractCommand
- *
- * @package LineMob\Handler
- *
  * @property boolean $active
- * @property Input $input
- * @property TemplateInterface|string $message
- * @property string $cmd
- * @property string $mode
- * @property array $tos
- * @property string $to
  * @property string $logs
+ *
+ * @author Ishmael Doss <nukboon@gmail.com>
  */
-abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
+abstract class AbstractCommand implements \ArrayAccess
 {
     /**
-     * @var CommandStorageInterface
+     * @var string a persistent code
+     */
+    protected $code;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $description;
+
+    /**
+     * @var string
+     */
+    protected $cmd;
+
+    /**
+     * @var CommandDataInterface
      */
     public $storage;
+
+    /**
+     * @var Input
+     */
+    public $input;
+
+    /**
+     * @var TemplateInterface
+     */
+    public $message;
+
+    /**
+     * @var string
+     */
+    public $mode;
+
+    /**
+     * @var string
+     */
+    public $to;
+
+    /**
+     * @var string[]
+     */
+    public $tos;
 
     /**
      * @var array
@@ -34,11 +79,63 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
     protected $data = [];
 
     /**
+     * @var array
+     */
+    protected $logData = [];
+
+    /**
      * @param array $data
      */
     public function __construct(array $data = [])
     {
+        $this->setForzenParameters($data);
+
         $this->data = array_replace_recursive($this->data, $data);
+    }
+
+    /**
+     * @param array $data
+     */
+    private function setForzenParameters(array &$data)
+    {
+        foreach (['name', 'description', 'cmd'] as $value) {
+            if (array_key_exists($value, $data)) {
+                $this->$value = $data[$value];
+                unset($data[$value]);
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCmd()
+    {
+        return $this->cmd;
     }
 
     /**
@@ -74,19 +171,6 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function offsetSet($offset, $value)
     {
-        if ('message' === $offset) {
-            if (!$value instanceof TemplateInterface) {
-                $text = new TextTemplate();
-                $text->text = (string) $value;
-                $value = $text;
-            }
-
-            // still not!
-            if (!$value instanceof TemplateInterface) {
-                throw new \LogicException("The value of `message` key need to be instanceof ".TemplateInterface::class);
-            }
-        }
-
         $this->data[$offset] = $value;
     }
 
@@ -99,9 +183,9 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function jsonSerialize()
+    public function getData()
     {
         return $this->data;
     }
@@ -111,6 +195,10 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
      */
     public function __get($name)
     {
+        if ('logs' === $name) {
+            return $this->logData;
+        }
+
         return $this->offsetGet($name);
     }
 
@@ -120,11 +208,11 @@ abstract class AbstractCommand implements \ArrayAccess, \JsonSerializable
     public function __set($name, $value)
     {
         if ('logs' === $name) {
-            if (empty($this->data['logs'])) {
-                $this->data['logs'] = [];
+            if (empty($this->logData)) {
+                $this->logData = [];
             }
 
-            array_push($this->data['logs'], $value);
+            array_push($this->logData, $value);
 
             return;
         }

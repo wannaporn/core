@@ -1,47 +1,58 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core;
 
-class Input implements \Serializable
+/**
+ * @property string $text
+ * @property string $userId
+ * @property string $replyToken
+ *
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
+class Input
 {
     /**
-     * @var string
+     * @var array
      */
-    public $text;
+    private $data = [];
 
-    /**
-     * @var string
-     */
-    public $userId;
+    public function __construct(array $data)
+    {
+        $data['text'] = trim(preg_replace(['/ +/'], [' '], $data['text']));
 
-    /**
-     * @var string
-     */
-    public $replyToken;
+        $this->data = $data;
+    }
 
     /**
      * {@inheritdoc}
      */
     public function __toString()
     {
-        return $this->text;
+        return (string)$this->data['text'];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function serialize()
+    public function __get($name)
     {
-        return serialize(get_object_vars($this));
+        return $this->data[$name];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function __set($name, $value)
     {
-        foreach (unserialize($serialized) as $key => $value) {
-            $this->{$key} = $value;
-        }
+        throw new \LogicException('Impossible to set on a frozen input.');
     }
 }

@@ -1,10 +1,22 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core\Middleware;
 
 use League\Tactician\Middleware;
 use LineMob\Core\Command\AbstractCommand;
 
+/**
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
 class DummyStoragePersistMiddleware implements Middleware
 {
     /**
@@ -18,24 +30,7 @@ class DummyStoragePersistMiddleware implements Middleware
             throw new \RuntimeException("Require storage before using this middleware!");
         }
 
-        $storage = $command->storage;
-        $logs = $command->logs;
-
-        // don't persist log
-        unset($command->logs);
-
-        // don't persist log
-        unset($command->storage);
-
-        // only persist raw data
-        $storage->setLineCommandData((array) $command);
-
-        // log for dump
-        $command['logs'] = $logs;
-        $command->logs = ['data' => (array) $storage->getLineCommandData()];
-
-        // re-connect storage
-        $command->storage = $storage;
+        $command->storage->setLineCommandData($command->getData());
 
         return $next($command);
     }
