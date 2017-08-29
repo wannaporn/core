@@ -55,11 +55,29 @@ class Row
     }
 
     /**
+     * @param $label
      * @param $text
-     * @param $value
      */
-    public function addAction($text, $value)
+    public function addMessageAction($label, $text)
     {
-        $this->actions[] = new Action($text, $value);
+        $this->actions[] = new Action($label, $text, Action::TYPE_MESSAGE);
+    }
+
+    /**
+     * @param $label
+     * @param $link
+     */
+    public function addUriAction($label, $link)
+    {
+        $this->actions[] = new Action($label, $link, Action::TYPE_URI);
+    }
+
+    /**
+     * @param $label
+     * @param $data
+     */
+    public function addPostbackAction($label, $data)
+    {
+        $this->actions[] = new Action($label, $data, Action::TYPE_POSTBACK);
     }
 }

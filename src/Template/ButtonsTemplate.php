@@ -74,12 +74,29 @@ class ButtonsTemplate extends AbstractTemplate
     }
 
     /**
+     * @param $label
      * @param $text
-     * @param $value
-     * @param $type
      */
-    public function addAction($text, $value, $type = Action::TYPE_MESSAGE)
+    public function addMessageAction($label, $text)
     {
-        $this->actions[] = new Action($text, $value, $type);
+        $this->actions[] = new Action($label, $text, Action::TYPE_MESSAGE);
+    }
+
+    /**
+     * @param $label
+     * @param $link
+     */
+    public function addUriAction($label, $link)
+    {
+        $this->actions[] = new Action($label, $link, Action::TYPE_URI);
+    }
+
+    /**
+     * @param $label
+     * @param $data
+     */
+    public function addPostbackAction($label, $data)
+    {
+        $this->actions[] = new Action($label, $data, Action::TYPE_POSTBACK);
     }
 }
