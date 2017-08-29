@@ -15,8 +15,11 @@ namespace LineMob\Core\Template\Carousel;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LineMob\Core\Template\AbstractTemplate;
+use LineMob\Core\Template\Action;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -44,7 +47,16 @@ class CarouselTemplate extends AbstractTemplate
             $actions = [];
 
             foreach ($row->actions as $action) {
-                $actions[] = new UriTemplateActionBuilder($action->label, $action->link);
+                switch (strtolower($action->type)) {
+                    case Action::TYPE_POSTBACK:
+                        $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
+                        break;
+                    case Action::TYPE_URI:
+                        $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
+                        break;
+                    default:
+                        $actions[] =  new MessageTemplateActionBuilder($action->label, $action->value);;
+                }
             }
 
             $rows[] = new CarouselColumnTemplateBuilder(
@@ -61,7 +73,7 @@ class CarouselTemplate extends AbstractTemplate
      * @param string $title
      * @param string $text
      * @param string $thumbnail
-     * @param [{'label', 'link'}]|RowAction[] $actions
+     * @param [{'label', 'value', 'type'}]|Action[] $actions
      */
     public function addRow($title, $text, $thumbnail, array $actions = [])
     {

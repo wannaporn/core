@@ -12,6 +12,8 @@
 
 namespace LineMob\Core\Template\Carousel;
 
+use LineMob\Core\Template\Action;
+
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
@@ -33,7 +35,7 @@ class Row
     public $title;
 
     /**
-     * @var RowAction[]
+     * @var Action[]
      */
     public $actions;
 
@@ -44,8 +46,8 @@ class Row
         $this->thumbnail = $thumbnail;
 
         foreach ($actions as $action) {
-            if (!$action instanceof RowAction) {
-                $action = new RowAction($action['label'], $action['link']);
+            if (!$action instanceof Action) {
+                $action = new Action($action['label'], $action['value']);
             }
 
             $this->actions[] = $action;
@@ -53,11 +55,29 @@ class Row
     }
 
     /**
+     * @param $label
      * @param $text
+     */
+    public function addMessageAction($label, $text)
+    {
+        $this->actions[] = new Action($label, $text, Action::TYPE_MESSAGE);
+    }
+
+    /**
+     * @param $label
      * @param $link
      */
-    public function addAction($text, $link)
+    public function addUriAction($label, $link)
     {
-        $this->actions[] = new RowAction($text, $link);
+        $this->actions[] = new Action($label, $link, Action::TYPE_URI);
+    }
+
+    /**
+     * @param $label
+     * @param $data
+     */
+    public function addPostbackAction($label, $data)
+    {
+        $this->actions[] = new Action($label, $data, Action::TYPE_POSTBACK);
     }
 }
