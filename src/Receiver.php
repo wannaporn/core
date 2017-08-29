@@ -1,10 +1,23 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core;
 
 use League\Tactician\CommandBus;
 use LineMob\Core\Command\FallbackCommand;
+use LineMob\Core\Exception\InterruptException;
 
+/**
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
 class Receiver
 {
     /**
@@ -82,6 +95,8 @@ class Receiver
                 $command->input = $input;
 
                 $results[] = $this->commandBus->handle($command);
+            } catch (InterruptException $e) {
+                // TODO: handle
             } catch (\Exception $e) {
                 $results[] = sprintf('ERROR: %s', $e->getMessage());
             }
