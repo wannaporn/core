@@ -64,6 +64,66 @@ class Receiver
     }
 
     /**
+     * @param array $eventData
+     *
+     * @return string
+     */
+    private function captureReceiveMessageText(array $eventData)
+    {
+        $type = strtolower(@$eventData['message']['type']);
+
+        switch ($type) {
+            case Constants::REVEIVE_TYPE_MESSAGE_TEXT:
+                return @$eventData['message']['text'];
+                break;
+
+            default:
+                throw new \RuntimeException("Unknown message type `$type`.");
+        }
+    }
+
+    /**
+     * @param array $eventData
+     *
+     * @return Input
+     */
+    private function captureInput(array $eventData)
+    {
+        $inputData = [];
+
+        if (empty($eventData['replyToken'])) {
+            throw new \InvalidArgumentException("Require `replyToken` to run.");
+        }
+
+        if (empty($eventData['source']['userId'])) {
+            throw new \InvalidArgumentException("Require `userId` to run.");
+        }
+
+        $inputData['replyToken'] = $eventData['replyToken'];
+        $inputData['userId'] = $eventData['source']['userId'];
+        $type = strtolower(@$eventData['type']);
+
+        switch ($type) {
+            case Constants::REVEIVE_TYPE_FOLLOW:
+                $inputData['text'] = ':follow';
+                break;
+
+            case Constants::REVEIVE_TYPE_MESSAGE:
+                $inputData['text'] = $this->captureReceiveMessageText($eventData);
+                break;
+
+            default:
+                throw new \RuntimeException("Unsupported type `$type`.");
+        }
+
+        if (!$inputData['text']) {
+            $inputData['text'] = FallbackCommand::CMD;
+        }
+
+        return new Input($inputData);
+    }
+
+    /**
      * @param $payload
      *
      * @return array
@@ -75,32 +135,8 @@ class Receiver
         $results = [];
 
         foreach ($events as $event) {
-            $inputData = [];
-            $inputData['replyToken'] = @$event['replyToken'];
-            $inputData['userId'] = @$event['source']['userId'];
-
-            if (!$inputData['userId']) {
-                throw new \RuntimeException("Require `userId` to run.");
-            }
-
-            if (Constants::REVEIVE_TYPE_FOLLOW === @$event['type']) {
-                $inputData['text'] = ':follow';
-            }
-
-            if (Constants::REVEIVE_TYPE_MESSAGE === @$event['type']) {
-                if (Constants::REVEIVE_TYPE_MESSAGE_TEXT === @$event['message']['type']) {
-                    $inputData['text'] = @$event['message']['text'];
-                }
-
-                // TODO: support other type
-            }
-
-            if (!$inputData['text']) {
-                $inputData['text'] = FallbackCommand::CMD;
-            }
-
             try {
-                $input = new Input($inputData);
+                $input = $this->captureInput($event);
                 $command = $this->registry->findCommand($input);
                 $command->input = $input;
 
@@ -111,7 +147,7 @@ class Receiver
                 $results[] = sprintf('ERROR: %s', $e->getMessage());
             }
         }
-
+dump($results);
         return $results;
     }
 }
