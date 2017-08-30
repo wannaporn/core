@@ -89,7 +89,9 @@ class Receiver
      */
     private function captureInput(array $eventData)
     {
-        $inputData = [];
+        $inputData = [
+            'text' => FallbackCommand::CMD,
+        ];
 
         if (empty($eventData['replyToken'])) {
             throw new \InvalidArgumentException("Require `replyToken` to run.");
@@ -116,10 +118,6 @@ class Receiver
                 throw new \RuntimeException("Unsupported type `$type`.");
         }
 
-        if (!$inputData['text']) {
-            $inputData['text'] = FallbackCommand::CMD;
-        }
-
         return new Input($inputData);
     }
 
@@ -134,20 +132,20 @@ class Receiver
         $events = (array)@$data['events'];
         $results = [];
 
-        foreach ($events as $event) {
-            try {
+        try {
+            foreach ($events as $event) {
                 $input = $this->captureInput($event);
                 $command = $this->registry->findCommand($input);
                 $command->input = $input;
 
                 $results[] = $this->commandBus->handle($command);
-            } catch (DerailException $e) {
-                $results[] = $this->handler->handle($e->command);
-            } catch (\Exception $e) {
-                $results[] = sprintf('ERROR: %s', $e->getMessage());
             }
+        } catch (DerailException $e) {
+            $results[] = $this->handler->handle($e->command);
+        } catch (\Exception $e) {
+            $results[] = sprintf('ERROR: %s', $e->getMessage());
         }
-dump($results);
+
         return $results;
     }
 }
