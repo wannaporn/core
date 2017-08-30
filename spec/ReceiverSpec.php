@@ -6,6 +6,7 @@ use League\Tactician\CommandBus;
 use LineMob\Core\LineBot;
 use LineMob\Core\Receiver;
 use LineMob\Core\RegistryInterface;
+use LineMob\Core\SenderHandlerInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -13,9 +14,9 @@ use PhpSpec\ObjectBehavior;
  */
 class ReceiverSpec extends ObjectBehavior
 {
-    function let(LineBot $bot, RegistryInterface $registry, CommandBus $bus)
+    function let(LineBot $bot, RegistryInterface $registry, CommandBus $bus, SenderHandlerInterface $handler)
     {
-        $this->beConstructedWith($bot, $registry, $bus);
+        $this->beConstructedWith($bot, $registry, $bus, $handler);
     }
 
     function it_is_initializable()

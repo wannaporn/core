@@ -13,7 +13,7 @@ namespace LineMob\Core;
 
 use League\Tactician\CommandBus;
 use LineMob\Core\Command\FallbackCommand;
-use LineMob\Core\Exception\InterruptException;
+use LineMob\Core\Exception\DerailException;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -35,11 +35,21 @@ class Receiver
      */
     private $registry;
 
-    public function __construct(LineBot $bot, RegistryInterface $registry, CommandBus $commandBus)
-    {
+    /**
+     * @var SenderHandlerInterface
+     */
+    private $handler;
+
+    public function __construct(
+        LineBot $bot,
+        RegistryInterface $registry,
+        CommandBus $commandBus,
+        SenderHandlerInterface $handler
+    ) {
         $this->bot = $bot;
         $this->registry = $registry;
         $this->commandBus = $commandBus;
+        $this->handler = $handler;
     }
 
     /**
@@ -95,8 +105,8 @@ class Receiver
                 $command->input = $input;
 
                 $results[] = $this->commandBus->handle($command);
-            } catch (InterruptException $e) {
-                // TODO: handle
+            } catch (DerailException $e) {
+                $results[] = $this->handler->handle($e->command);
             } catch (\Exception $e) {
                 $results[] = sprintf('ERROR: %s', $e->getMessage());
             }

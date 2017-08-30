@@ -16,18 +16,16 @@ use LineMob\Core\Command\AbstractCommand;
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class InterruptException extends \Exception
+class DerailException extends \Exception
 {
     /**
      * @var AbstractCommand
      */
     public $command;
-    public $handler;
 
-    public function __construct(AbstractCommand $command, $handler, $code = 0, $previous = null)
+    public function __construct(AbstractCommand $command, $code = 0, $previous = null)
     {
         $this->command = $command;
-        $this->handler = $handler;
 
         parent::__construct('', $code, $previous);
     }

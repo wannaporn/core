@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace LineMob\Core\Template\Carousel;
 
 use LineMob\Core\Template\Action;
@@ -17,7 +16,7 @@ use LineMob\Core\Template\Action;
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class Row
+class Item
 {
     /**
      * @var string
@@ -47,7 +46,7 @@ class Row
 
         foreach ($actions as $action) {
             if (!$action instanceof Action) {
-                $action = new Action($action['label'], $action['value']);
+                throw new \InvalidArgumentException("`Action` should be typeof: ".Action::class);
             }
 
             $this->actions[] = $action;
