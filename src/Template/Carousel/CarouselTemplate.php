@@ -27,9 +27,9 @@ use LineMob\Core\Template\Action;
 class CarouselTemplate extends AbstractTemplate
 {
     /**
-     * @var Row[]
+     * @var Item[]
      */
-    public $rows;
+    public $items;
 
     /**
      * @var string
@@ -37,36 +37,46 @@ class CarouselTemplate extends AbstractTemplate
     public $altText = 'This is carousel template.';
 
     /**
+     * @param Item $item
+     *
+     * @return Action[]
+     */
+    private function createItemActions(Item $item)
+    {
+        $actions = [];
+
+        foreach ($item->actions as $action) {
+            switch (strtolower($action->type)) {
+                case Action::TYPE_POSTBACK:
+                    $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
+                    break;
+                case Action::TYPE_URI:
+                    $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
+                    break;
+                default:
+                    $actions[] =  new MessageTemplateActionBuilder($action->label, $action->value);;
+            }
+        }
+
+        return $actions;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getTemplate()
     {
-        $rows = [];
+        $items = [];
 
-        foreach ($this->rows as $row) {
-            $actions = [];
-
-            foreach ($row->actions as $action) {
-                switch (strtolower($action->type)) {
-                    case Action::TYPE_POSTBACK:
-                        $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
-                        break;
-                    case Action::TYPE_URI:
-                        $actions[] =  new UriTemplateActionBuilder($action->label, $action->value);
-                        break;
-                    default:
-                        $actions[] =  new MessageTemplateActionBuilder($action->label, $action->value);;
-                }
-            }
-
-            $rows[] = new CarouselColumnTemplateBuilder(
-                mb_substr($row->title, 0, 40), mb_substr($row->text, 0, 60),
-                $row->thumbnail,
-                $actions
+        foreach ($this->items as $item) {
+            $items[] = new CarouselColumnTemplateBuilder(
+                mb_substr($item->title, 0, 40), mb_substr($item->text, 0, 60),
+                $item->thumbnail,
+                $this->createItemActions($item)
             );
         }
 
-        return new TemplateMessageBuilder($this->altText, new CarouselTemplateBuilder($rows));
+        return new TemplateMessageBuilder($this->altText, new CarouselTemplateBuilder($items));
     }
 
     /**
@@ -75,8 +85,8 @@ class CarouselTemplate extends AbstractTemplate
      * @param string $thumbnail
      * @param array|Action[] $actions
      */
-    public function addRow($title, $text, $thumbnail, array $actions = [])
+    public function addItem($title, $text, $thumbnail, array $actions = [])
     {
-        $this->rows[] = new Row($title, $text, $thumbnail, $actions);
+        $this->items[] = new Item($title, $text, $thumbnail, $actions);
     }
 }

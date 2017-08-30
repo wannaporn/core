@@ -9,19 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core;
+namespace LineMob\Core\Exception;
 
 use LineMob\Core\Command\AbstractCommand;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-interface SenderHandlerInterface
+class DerailException extends \Exception
 {
     /**
-     * @param AbstractCommand $command
-     *
-     * @return mixed
+     * @var AbstractCommand
      */
-    public function handle(AbstractCommand $command);
+    public $command;
+
+    public function __construct(AbstractCommand $command, $code = 0, $previous = null)
+    {
+        $this->command = $command;
+
+        parent::__construct('', $code, $previous);
+    }
 }

@@ -77,7 +77,11 @@ class QuickStart
      */
     public function setup($lineChannelToken, $lineChannelSecret, array $httpClientConfig = [])
     {
-        $linebot = new LineBot(new GuzzleHttpClient($lineChannelToken, $httpClientConfig), ['channelSecret' => $lineChannelSecret]);
+        $linebot = new LineBot(
+            new GuzzleHttpClient($lineChannelToken, $httpClientConfig),
+            ['channelSecret' => $lineChannelSecret]
+        );
+
         $factory = new MessageFactory();
         $registry = new Registry();
         $handler = new SenderHandler($linebot, $factory);
@@ -90,7 +94,8 @@ class QuickStart
         array_unshift($this->middlewares, new LockingMiddleware());
 
         // must be end of all middlewares
-        array_push( $this->middlewares,
+        array_push(
+            $this->middlewares,
             new CommandHandlerMiddleware(
                 new ClassNameExtractor(),
                 new InMemoryLocator($registry->getCommandList()),
@@ -109,6 +114,6 @@ class QuickStart
         $factory->add(new ConfirmMessage());
         $factory->add(new ButtonsMessage());
 
-        return new Receiver($linebot, $registry, new CommandBus($this->middlewares));
+        return new Receiver($linebot, $registry, new CommandBus($this->middlewares), $handler);
     }
 }

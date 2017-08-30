@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the LineMob package.
+ *
+ * (c) Ishmael Doss <nukboon@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace LineMob\Core\HttpClient;
 
 use GuzzleHttp\Psr7\Request;
@@ -9,6 +18,9 @@ use LINE\LINEBot\HTTPClient as HttpClientInterface;
 use LINE\LINEBot\Response;
 use LineMob\Core\Constants;
 
+/**
+ * @author Ishmael Doss <nukboon@gmail.com>
+ */
 class GuzzleHttpClient implements HttpClientInterface
 {
     /**
