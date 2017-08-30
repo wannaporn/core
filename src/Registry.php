@@ -31,7 +31,7 @@ class Registry implements RegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function add($commandClass, SenderHandlerInterface $handler, $default = false)
+    public function add($commandClass, CommandHandlerInterface $handler, $default = false)
     {
         $this->commands[$commandClass] = $handler;
 

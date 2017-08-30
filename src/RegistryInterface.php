@@ -20,11 +20,11 @@ interface RegistryInterface
 {
     /**
      * @param string $commandClass
-     * @param SenderHandlerInterface $handler
+     * @param CommandHandlerInterface $handler
      *
      * @param bool $default
      */
-    public function add($commandClass, SenderHandlerInterface $handler, $default = false);
+    public function add($commandClass, CommandHandlerInterface $handler, $default = false);
 
     /**
      * @param Input $input

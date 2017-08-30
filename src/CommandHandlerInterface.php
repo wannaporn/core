@@ -11,9 +11,17 @@
 
 namespace LineMob\Core;
 
+use LineMob\Core\Command\AbstractCommand;
+
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class LineBot extends \LINE\LINEBot
+interface CommandHandlerInterface
 {
+    /**
+     * @param AbstractCommand $command
+     *
+     * @return mixed
+     */
+    public function handle(AbstractCommand $command);
 }

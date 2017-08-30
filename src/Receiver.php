@@ -14,6 +14,7 @@ namespace LineMob\Core;
 use League\Tactician\CommandBus;
 use LineMob\Core\Command\FallbackCommand;
 use LineMob\Core\Exception\DerailException;
+use LineMob\Core\Sender\SenderInterface;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -21,9 +22,9 @@ use LineMob\Core\Exception\DerailException;
 class Receiver
 {
     /**
-     * @var LineBot
+     * @var SenderInterface
      */
-    private $bot;
+    private $sender;
 
     /**
      * @var CommandBus
@@ -36,17 +37,17 @@ class Receiver
     private $registry;
 
     /**
-     * @var SenderHandlerInterface
+     * @var CommandHandlerInterface
      */
     private $handler;
 
     public function __construct(
-        LineBot $bot,
+        SenderInterface $sender,
         RegistryInterface $registry,
         CommandBus $commandBus,
-        SenderHandlerInterface $handler
+        CommandHandlerInterface $handler
     ) {
-        $this->bot = $bot;
+        $this->sender = $sender;
         $this->registry = $registry;
         $this->commandBus = $commandBus;
         $this->handler = $handler;
@@ -60,7 +61,7 @@ class Receiver
      */
     public function validate($body, $signature)
     {
-        return $this->bot->validateSignature($body, $signature);
+        return $this->sender->validateSignature($body, $signature);
     }
 
     /**

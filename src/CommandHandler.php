@@ -13,16 +13,17 @@ namespace LineMob\Core;
 
 use LineMob\Core\Command\AbstractCommand;
 use LineMob\Core\Factory\MessageFactoryInterface;
+use LineMob\Core\Sender\SenderInterface;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class SenderHandler implements SenderHandlerInterface
+class CommandHandler implements CommandHandlerInterface
 {
     /**
-     * @var LineBot
+     * @var SenderInterface
      */
-    protected $bot;
+    protected $sender;
 
     /**
      * @var MessageFactoryInterface
@@ -30,12 +31,12 @@ class SenderHandler implements SenderHandlerInterface
     protected $factory;
 
     /**
-     * @param LineBot $bot
+     * @param SenderInterface $sender
      * @param MessageFactoryInterface $factory
      */
-    public function __construct(LineBot $bot, MessageFactoryInterface $factory)
+    public function __construct(SenderInterface $sender, MessageFactoryInterface $factory)
     {
-        $this->bot = $bot;
+        $this->sender = $sender;
         $this->factory = $factory;
     }
 
@@ -48,15 +49,15 @@ class SenderHandler implements SenderHandlerInterface
 
         switch ($command->mode) {
             case Constants::MODE_MULTICAST:
-                $result = $this->bot->multicast($command->tos, $message);
+                $result = $this->sender->multicast($command->tos, $message);
                 break;
 
             case Constants::MODE_PUSH:
-                $result = $this->bot->pushMessage($command->to, $message);
+                $result = $this->sender->pushMessage($command->to, $message);
                 break;
 
             default:
-                $result = $this->bot->replyMessage($command->input->replyToken, $message);
+                $result = $this->sender->replyMessage($command->input->replyToken, $message);
         }
 
         return $result;

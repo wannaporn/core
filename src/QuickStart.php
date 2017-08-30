@@ -29,6 +29,7 @@ use LineMob\Core\Message\LocationMessage;
 use LineMob\Core\Message\StickerMessage;
 use LineMob\Core\Message\TextMessage;
 use LineMob\Core\Message\VideoMessage;
+use LineMob\Core\Sender\LineSender;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -77,14 +78,14 @@ class QuickStart
      */
     public function setup($lineChannelToken, $lineChannelSecret, array $httpClientConfig = [])
     {
-        $linebot = new LineBot(
+        $sender = new LineSender(
             new GuzzleHttpClient($lineChannelToken, $httpClientConfig),
             ['channelSecret' => $lineChannelSecret]
         );
 
         $factory = new MessageFactory();
         $registry = new Registry();
-        $handler = new SenderHandler($linebot, $factory);
+        $handler = new CommandHandler($sender, $factory);
 
         foreach ($this->commands as $command => $default) {
             $registry->add($command, $handler, $default);
@@ -114,6 +115,6 @@ class QuickStart
         $factory->add(new ConfirmMessage());
         $factory->add(new ButtonsMessage());
 
-        return new Receiver($linebot, $registry, new CommandBus($this->middlewares), $handler);
+        return new Receiver($sender, $registry, new CommandBus($this->middlewares), $handler);
     }
 }

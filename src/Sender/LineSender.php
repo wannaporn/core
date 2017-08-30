@@ -9,19 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core;
+namespace LineMob\Core\Sender;
 
-use LineMob\Core\Command\AbstractCommand;
+use \LINE\LINEBot;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-interface SenderHandlerInterface
+class LineSender extends LINEBot implements SenderInterface
 {
-    /**
-     * @param AbstractCommand $command
-     *
-     * @return mixed
-     */
-    public function handle(AbstractCommand $command);
 }

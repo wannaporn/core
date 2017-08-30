@@ -16,7 +16,7 @@ use LineMob\Core\Command\AbstractCommand;
 use LineMob\Core\Command\FallbackCommand;
 use LineMob\Core\Input;
 use LineMob\Core\RegistryInterface;
-use LineMob\Core\SenderHandlerInterface;
+use LineMob\Core\CommandHandlerInterface;
 use LineMob\Core\Storage\CommandDataInterface;
 use LineMob\Core\Storage\CommandInterface;
 
@@ -53,7 +53,7 @@ class CommandRegistryDecorator implements RegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function add($commandClass, SenderHandlerInterface $handler, $default = false)
+    public function add($commandClass, CommandHandlerInterface $handler, $default = false)
     {
         $this->decoratedRegistry->add($commandClass, $handler, $default);
     }
