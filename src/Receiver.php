@@ -116,7 +116,7 @@ class Receiver
                 break;
 
             default:
-                throw new \RuntimeException("Unsupported type `$type`.");
+                throw new \RuntimeException("Unsupported event type `$type`.");
         }
 
         return new Input($inputData);

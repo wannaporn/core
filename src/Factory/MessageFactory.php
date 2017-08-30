@@ -13,6 +13,7 @@ namespace LineMob\Core\Factory;
 
 use LineMob\Core\Command\AbstractCommand;
 use LineMob\Core\Message\MessageInterface;
+use LineMob\Core\Template\TemplateInterface;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -48,6 +49,14 @@ class MessageFactory implements MessageFactoryInterface
             }
         }
 
-        throw new \RuntimeException("Unsupported message type: ".get_class($command->message));
+        if ($command->message instanceof TemplateInterface) {
+            $type = get_class($command->message);
+        } else {
+            $type = strval($command->message);
+        }
+
+        throw new \InvalidArgumentException(
+            sprintf("Unsupported message type: `%s` for `%s`.", $type, get_class($command))
+        );
     }
 }

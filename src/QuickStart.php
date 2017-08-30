@@ -30,6 +30,7 @@ use LineMob\Core\Message\StickerMessage;
 use LineMob\Core\Message\TextMessage;
 use LineMob\Core\Message\VideoMessage;
 use LineMob\Core\Sender\LineSender;
+use LineMob\Core\Sender\SenderInterface;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
@@ -70,22 +71,42 @@ class QuickStart
     }
 
     /**
+     * @return MessageFactory
+     */
+    private function createMessageFactory()
+    {
+        $factory = new MessageFactory();
+        $factory->add(new CarouselMessage());
+        $factory->add(new ImageMessage());
+        $factory->add(new ImageMapMessage());
+        $factory->add(new TextMessage());
+        $factory->add(new LocationMessage());
+        $factory->add(new StickerMessage());
+        $factory->add(new AudioMessage());
+        $factory->add(new VideoMessage());
+        $factory->add(new ConfirmMessage());
+        $factory->add(new ButtonsMessage());
+
+        return $factory;
+    }
+
+    /**
      * @param string $lineChannelToken
      * @param string $lineChannelSecret
-     * @param array $httpClientConfig
+     * @param array $httpConfig
+     * @param SenderInterface|null $sender
      *
      * @return Receiver
      */
-    public function setup($lineChannelToken, $lineChannelSecret, array $httpClientConfig = [])
+    public function setup($lineChannelToken, $lineChannelSecret, array $httpConfig = [], SenderInterface $sender = null)
     {
-        $sender = new LineSender(
-            new GuzzleHttpClient($lineChannelToken, $httpClientConfig),
+        $sender = $sender ?: new LineSender(
+            new GuzzleHttpClient($lineChannelToken, $httpConfig),
             ['channelSecret' => $lineChannelSecret]
         );
 
-        $factory = new MessageFactory();
         $registry = new Registry();
-        $handler = new CommandHandler($sender, $factory);
+        $handler = new CommandHandler($sender, $this->createMessageFactory());
 
         foreach ($this->commands as $command => $default) {
             $registry->add($command, $handler, $default);
@@ -103,17 +124,6 @@ class QuickStart
                 new HandleInflector()
             )
         );
-
-        $factory->add(new CarouselMessage());
-        $factory->add(new ImageMessage());
-        $factory->add(new ImageMapMessage());
-        $factory->add(new TextMessage());
-        $factory->add(new LocationMessage());
-        $factory->add(new StickerMessage());
-        $factory->add(new AudioMessage());
-        $factory->add(new VideoMessage());
-        $factory->add(new ConfirmMessage());
-        $factory->add(new ButtonsMessage());
 
         return new Receiver($sender, $registry, new CommandBus($this->middlewares), $handler);
     }
