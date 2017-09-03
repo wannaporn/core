@@ -237,7 +237,39 @@ TODO
 
 ![Command Switch Middleware](command-switch.png)
 
-วิธีการใช้งานก็เหมือนกับการใช้ `Middleware` อื่นๆ ดูที่หัวข้อ [Setup](#setup)
+วิธีการใช้งานก็เหมือนกับการใช้ `Middleware` อื่นๆ ดูที่หัวข้อ [Setup](#setup) และมีสิ่งที่เราต้องทำเพียงเล็กน้อย คือสร้าง middleware สำหรับกำหนด command ที่เราต้องการเปลี่ยน ดังนี้
+
+```php
+<?php
+
+use League\Tactician\Middleware;
+use LineMob\Core\Command\AbstractCommand;
+use LineMob\Core\Template\TextTemplate;
+
+class SwitchingMiddleware implements Middleware
+{
+    /**
+     * @param AbstractCommand $command
+     *
+     * {@inheritdoc}
+     */
+    public function execute($command, callable $next)
+    {
+        $cmd = new \YourSwitchedCommand();
+        $cmd->message = new TextTemplate();
+        $cmd->message->text = "Hi, I'm SwitchedCommand";
+
+        // copy input
+        $cmd->input = $command->input;
+
+        // MUST be `switchTo` key
+        $command['switchTo'] = $cmd;
+
+        return $next($command);
+    }
+}
+
+```
 
 ### Workflow Middleware
 TODO
