@@ -233,7 +233,11 @@ TODO
 TODO
 
 ### Command Switch Middleware
-TODO
+บางกรณีเราอาจจะอยากเปลี่ยน Command ในระหว่างการประมวลผล `\LineMob\Core\Middleware\CommandSwitcherMiddleware` ช่วยเราได้
+
+![Command Switch Middleware](command-switch.png)
+
+วิธีการใช้งานก็เหมือนกับการใช้ `Middleware` อื่นๆ ดูที่หัวข้อ [Setup](#setup)
 
 ### Workflow Middleware
 TODO
