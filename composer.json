@@ -41,6 +41,8 @@
         "phpspec/phpspec": "^3.0",
         "php-http/guzzle6-adapter": "^1.1",
         "symfony/var-dumper": "^3.3",
+        "doctrine/instantiator": "1.0.5",
+        "doctrine/orm": "^2.5",
         "doctrine/common": "^2.8"
     },
     "config": {

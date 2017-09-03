@@ -76,7 +76,6 @@ class Receiver
         switch ($type) {
             case Constants::REVEIVE_TYPE_MESSAGE_TEXT:
                 return @$eventData['message']['text'];
-                break;
 
             default:
                 throw new \RuntimeException("Unknown message type `$type`.");
