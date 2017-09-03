@@ -19,17 +19,17 @@ class CommandData implements CommandDataInterface
     /**
      * @var string
      */
-    private $lineUserId;
+    protected $lineUserId;
 
     /**
      * @var string
      */
-    private $lineActiveCmd;
+    protected $lineActiveCmd;
 
     /**
      * @var array
      */
-    private $lineCommandData = [];
+    protected $lineCommandData = [];
 
     /**
      * {@inheritdoc}
