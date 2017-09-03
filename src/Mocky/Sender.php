@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Sender;
+namespace LineMob\Core\Mocky;
 
 use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\Response;
+use LineMob\Core\Sender\SenderInterface;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class MockySender implements SenderInterface
+class Sender implements SenderInterface
 {
     /**
      * {@inheritdoc}

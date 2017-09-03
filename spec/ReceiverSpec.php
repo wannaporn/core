@@ -87,7 +87,7 @@ class ReceiverSpec extends ObjectBehavior
 
         $this->handle($data)->shouldReturn(
             [
-                'ERROR: Unsupported type ``.',
+                'ERROR: Unsupported event type ``.',
             ]
         );
     }

@@ -27,3 +27,4 @@
 /phpspec.yml
 
 .web-server-pid
+/src/Mocky/Doctrine/db.sqlite

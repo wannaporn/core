@@ -192,11 +192,87 @@ public function yourAction(Request $request)
 ## Advance
 หัวข้อนี้ สำหรับการใช้งาน LineMob Core ขั้นสูง ซึ่งจะพูดถึงการทำให้ `Command` ของคุณเก็บสถานะไว้ได้ (Stateful)
 
+### DerailException
+![derailexception](derailexception.png)
+
+หากเราต้องการออกจาก `Bus` และข้ามไปยัง `Handler` ทันที หรือไม่ต้องการให้ `Middleware` อื่นๆ ทำงานต่อ
+เราสามาร ใช้ `DerailException` เพื่อส่ง Command ไปยัง Handler ทันที
+
+```php
+<?php
+
+use League\Tactician\Middleware;
+use LineMob\Core\Command\AbstractCommand;
+use LineMob\Core\Exception\DerailException;
+
+class TextMessageMiddleware implements Middleware
+{
+    /**
+     * @param AbstractCommand $command
+     *
+     * {@inheritdoc}
+     */
+    public function execute($command, callable $next)
+    {
+        if (!$command instanceof \YourCommand) {
+            return $next($command);
+        }
+
+        // Derail me to handler now!
+        throw new DerailException($command);
+    }
+}
+
+```
+
+
 ### Stateful command
 TODO
 
 ### Command Storage
 TODO
 
+### Command Switch Middleware
+บางกรณีเราอาจจะอยากเปลี่ยน Command ในระหว่างการประมวลผล `\LineMob\Core\Middleware\CommandSwitcherMiddleware` ช่วยเราได้
+
+![Command Switch Middleware](command-switch.png)
+
+วิธีการใช้งานก็เหมือนกับการใช้ `Middleware` อื่นๆ ดูที่หัวข้อ [Setup](#setup) และมีสิ่งที่เราต้องทำเพียงเล็กน้อย คือสร้าง middleware สำหรับกำหนด command ที่เราต้องการเปลี่ยน ดังนี้
+
+```php
+<?php
+
+use League\Tactician\Middleware;
+use LineMob\Core\Command\AbstractCommand;
+use LineMob\Core\Template\TextTemplate;
+
+class SwitchingMiddleware implements Middleware
+{
+    /**
+     * @param AbstractCommand $command
+     *
+     * {@inheritdoc}
+     */
+    public function execute($command, callable $next)
+    {
+        $cmd = new \YourSwitchedCommand();
+        $cmd->message = new TextTemplate();
+        $cmd->message->text = "Hi, I'm SwitchedCommand";
+
+        // copy input
+        $cmd->input = $command->input;
+
+        // MUST be `switchTo` key
+        $command['switchTo'] = $cmd;
+
+        return $next($command);
+    }
+}
+
+```
+
 ### Workflow Middleware
+TODO
+
+### Doctrine Transactional Middleware
 TODO
