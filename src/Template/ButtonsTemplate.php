@@ -11,6 +11,9 @@
 
 namespace LineMob\Core\Template;
 
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
  */
@@ -42,6 +45,19 @@ class ButtonsTemplate extends AbstractTemplate
      * @var Action[]
      */
     public $actions = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTemplate()
+    {
+        return new TemplateMessageBuilder($this->altText, new ButtonTemplateBuilder(
+            $this->title,
+            $this->text,
+            $this->thumbnail,
+            $this->createActions()
+        ));
+    }
 
     /**
      * @param $label

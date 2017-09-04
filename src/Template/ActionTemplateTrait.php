@@ -11,8 +11,6 @@
 
 namespace LineMob\Core\Template;
 
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -26,11 +24,10 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
  */
 trait ActionTemplateTrait
 {
-
     /**
-     * {@inheritdoc}
+     * @return Action[]
      */
-    public function getTemplate()
+    private function createActions()
     {
         $actions = [];
 
@@ -43,10 +40,10 @@ trait ActionTemplateTrait
                     $actions[] = new UriTemplateActionBuilder($action->label, $action->value);
                     break;
                 default:
-                    $actions[] = new MessageTemplateActionBuilder($action->label, $action->value);;
+                    $actions[] = new MessageTemplateActionBuilder($action->label, $action->value);
             }
         }
 
-        return new TemplateMessageBuilder($this->altText, new ConfirmTemplateBuilder($this->title, $actions));
+        return $actions;
     }
 }
