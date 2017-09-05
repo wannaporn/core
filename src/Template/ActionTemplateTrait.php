@@ -28,7 +28,7 @@ trait ActionTemplateTrait
      *
      * @return TemplateActionBuilder[]
      */
-    protected function createActions($actions)
+    private function createActions($actions)
     {
         $actionBuilders = [];
 
