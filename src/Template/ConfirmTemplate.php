@@ -11,6 +11,9 @@
 
 namespace LineMob\Core\Template;
 
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+
 /**
  * @author YokYukYik <yokyukyik.su@gmail.com>
  */
@@ -32,6 +35,17 @@ class ConfirmTemplate extends AbstractTemplate
      * @var Action[]
      */
     public $actions = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTemplate()
+    {
+        return new TemplateMessageBuilder($this->altText, new ConfirmTemplateBuilder(
+            $this->title,
+            $this->createActions($this->actions)
+        ));
+    }
 
     /**
      * @param string $label

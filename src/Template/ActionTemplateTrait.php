@@ -11,8 +11,7 @@
 
 namespace LineMob\Core\Template;
 
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -21,32 +20,31 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
  * @author Ishmael Doss <nukboon@gmail.com>
  *
  * @property array actions
- * @property string altText
- * @property string title
  */
 trait ActionTemplateTrait
 {
-
     /**
-     * {@inheritdoc}
+     * @param Action[]
+     *
+     * @return TemplateActionBuilder[]
      */
-    public function getTemplate()
+    private function createActions($actions)
     {
-        $actions = [];
+        $actionBuilders = [];
 
-        foreach ($this->actions as $action) {
+        foreach ($actions as $action) {
             switch (strtolower($action->type)) {
                 case Action::TYPE_POSTBACK:
-                    $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
+                    $actionBuilders[] = new PostbackTemplateActionBuilder($action->label, $action->value);
                     break;
                 case Action::TYPE_URI:
-                    $actions[] = new UriTemplateActionBuilder($action->label, $action->value);
+                    $actionBuilders[] = new UriTemplateActionBuilder($action->label, $action->value);
                     break;
                 default:
-                    $actions[] = new MessageTemplateActionBuilder($action->label, $action->value);;
+                    $actionBuilders[] = new MessageTemplateActionBuilder($action->label, $action->value);
             }
         }
 
-        return new TemplateMessageBuilder($this->altText, new ConfirmTemplateBuilder($this->title, $actions));
+        return $actionBuilders;
     }
 }
