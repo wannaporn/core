@@ -55,7 +55,7 @@ class ButtonsTemplate extends AbstractTemplate
             $this->title,
             $this->text,
             $this->thumbnail,
-            $this->createActions()
+            $this->createActions($this->actions)
         ));
     }
 

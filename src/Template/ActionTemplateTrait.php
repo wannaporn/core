@@ -11,6 +11,7 @@
 
 namespace LineMob\Core\Template;
 
+use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -19,31 +20,31 @@ use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
  * @author Ishmael Doss <nukboon@gmail.com>
  *
  * @property array actions
- * @property string altText
- * @property string title
  */
 trait ActionTemplateTrait
 {
     /**
-     * @return Action[]
+     * @param Action[]
+     *
+     * @return TemplateActionBuilder[]
      */
-    private function createActions()
+    protected function createActions($actions)
     {
-        $actions = [];
+        $actionBuilders = [];
 
-        foreach ($this->actions as $action) {
+        foreach ($actions as $action) {
             switch (strtolower($action->type)) {
                 case Action::TYPE_POSTBACK:
-                    $actions[] = new PostbackTemplateActionBuilder($action->label, $action->value);
+                    $actionBuilders[] = new PostbackTemplateActionBuilder($action->label, $action->value);
                     break;
                 case Action::TYPE_URI:
-                    $actions[] = new UriTemplateActionBuilder($action->label, $action->value);
+                    $actionBuilders[] = new UriTemplateActionBuilder($action->label, $action->value);
                     break;
                 default:
-                    $actions[] = new MessageTemplateActionBuilder($action->label, $action->value);
+                    $actionBuilders[] = new MessageTemplateActionBuilder($action->label, $action->value);
             }
         }
 
-        return $actions;
+        return $actionBuilders;
     }
 }

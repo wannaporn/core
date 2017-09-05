@@ -43,7 +43,7 @@ class ConfirmTemplate extends AbstractTemplate
     {
         return new TemplateMessageBuilder($this->altText, new ConfirmTemplateBuilder(
             $this->title,
-            $this->createActions()
+            $this->createActions($this->actions)
         ));
     }
 
