@@ -23,6 +23,7 @@ use LineMob\Core\Message\AudioMessage;
 use LineMob\Core\Message\ButtonsMessage;
 use LineMob\Core\Message\CarouselMessage;
 use LineMob\Core\Message\ConfirmMessage;
+use LineMob\Core\Message\ImageCarouselMessage;
 use LineMob\Core\Message\ImageMapMessage;
 use LineMob\Core\Message\ImageMessage;
 use LineMob\Core\Message\LocationMessage;
@@ -86,6 +87,7 @@ class QuickStart
         $factory->add(new VideoMessage());
         $factory->add(new ConfirmMessage());
         $factory->add(new ButtonsMessage());
+        $factory->add(new ImageCarouselMessage());
 
         return $factory;
     }
