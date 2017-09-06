@@ -37,7 +37,7 @@ class Item
         $this->imageUrl = $imageUrl;
 
         if (!$action instanceof Action) {
-            throw new \InvalidArgumentException("`Action` should be typeof: " . Action::class);
+            throw new \InvalidArgumentException("`Action` should be typeof: " .Action::class);
         }
 
         $this->action = $action;
