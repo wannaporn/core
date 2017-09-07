@@ -6,7 +6,9 @@ require_once __DIR__.'/vendor/autoload.php';
 use LineMob\Core\Constants;
 use LineMob\Core\Mocky\Setup;
 
-$result = Setup::switching(
+\LineMob\Core\Mocky\Doctrine\Manager::get(true);
+
+$result = Setup::authen(
     [
         'events' => [
             [
@@ -17,6 +19,7 @@ $result = Setup::switching(
                 ],
                 'message' => [
                     'type' => Constants::REVEIVE_TYPE_MESSAGE_TEXT,
+                    'text' => 'demo',
                 ],
             ],
         ],

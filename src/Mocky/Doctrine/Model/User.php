@@ -34,10 +34,53 @@ class User extends CommandData implements CommandDataInterface
     protected $lineCommandData;
 
     /**
+     * @Column(type="datetime_immutable", nullable=true)
+     */
+    protected $lineLastLogin;
+
+    /**
+     * @Column(type="json_array", nullable=true)
+     * @var array
+     */
+    protected $state = [];
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getLineLastLogin()
+    {
+        return $this->lineLastLogin;
+    }
+
+    /**
+     * @param \DateTimeImmutable $lineLastLogin
+     */
+    public function setLineLastLogin(\DateTimeImmutable $lineLastLogin = null)
+    {
+        $this->lineLastLogin = $lineLastLogin;
+    }
+
+    /**
+     * @return array
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param array $state
+     */
+    public function setState(array $state)
+    {
+        $this->state = $state;
     }
 }
