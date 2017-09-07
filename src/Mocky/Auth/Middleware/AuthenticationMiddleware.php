@@ -1,9 +1,10 @@
 <?php
 
-namespace LineMob\Core\Mocky\Auth;
+namespace LineMob\Core\Mocky\Auth\Middleware;
 
 use League\Tactician\Middleware;
 use LineMob\Core\Input;
+use LineMob\Core\Mocky\Auth\Command\LoginCommand;
 use LineMob\Core\Mocky\Doctrine\Model\User;
 use LineMob\Core\Template\TextTemplate;
 use Symfony\Component\Workflow\DefinitionBuilder;
@@ -19,21 +20,9 @@ class AuthenticationMiddleware implements Middleware
      */
     private $registry;
 
-    public function __construct()
+    public function __construct(Registry $registry)
     {
-        $definitionBuilder = new DefinitionBuilder();
-        $definition = $definitionBuilder->addPlaces(
-            ['started', 'wait_for_username', 'wait_for_password', 'wait_for_username_n_password', 'finished']
-        )
-            ->addTransition(new Transition('start', 'started', ['wait_for_username_n_password', 'wait_for_username']))
-            ->addTransition(new Transition('enter_username', 'wait_for_username', 'wait_for_password'))
-            ->addTransition(new Transition('enter_username_n_password', 'wait_for_username_n_password', 'finished'))
-            ->addTransition(new Transition('enter_password', 'wait_for_password', 'finished'))
-            ->build();
-
-        $workflow = new Workflow($definition, new MultipleStateMarkingStore('state'));
-        $this->registry = new Registry();
-        $this->registry->add($workflow, User::class);
+        $this->registry = $registry;
     }
 
     /**

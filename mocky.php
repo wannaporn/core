@@ -8,7 +8,7 @@ use LineMob\Core\Mocky\Setup;
 
 \LineMob\Core\Mocky\Doctrine\Manager::get(true);
 
-$result = Setup::authen(
+$results = Setup::authen(
     [
         'events' => [
             [
@@ -19,11 +19,17 @@ $result = Setup::authen(
                 ],
                 'message' => [
                     'type' => Constants::REVEIVE_TYPE_MESSAGE_TEXT,
-                    'text' => 'demo',
+                    'text' => ':exit',
                 ],
             ],
         ],
     ]
 );
 
-dump($result);
+foreach ($results as $result) {
+    if ($result instanceof \LINE\LINEBot\Response) {
+        dump($result->getJSONDecodedBody());
+    } else {
+        dump($result);
+    }
+}

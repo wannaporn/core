@@ -1,8 +1,9 @@
 <?php
 
-namespace LineMob\Core\Mocky\Auth;
+namespace LineMob\Core\Mocky\Auth\Middleware;
 
 use League\Tactician\Middleware;
+use LineMob\Core\Mocky\Auth\Command\LoginCommand;
 use LineMob\Core\Mocky\Doctrine\Model\User;
 
 class AuthorizationMiddleware implements Middleware

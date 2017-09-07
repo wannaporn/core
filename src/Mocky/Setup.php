@@ -7,16 +7,24 @@ use LineMob\Core\Middleware\CommandSwitcherMiddleware;
 use LineMob\Core\Middleware\DummyFallbackMiddleware;
 use LineMob\Core\Middleware\DumpLogMiddleware;
 use LineMob\Core\Middleware\StoreActiveCmdMiddleware;
-use LineMob\Core\Mocky\Auth\AuthenticationMiddleware;
-use LineMob\Core\Mocky\Auth\AuthorizationMiddleware;
-use LineMob\Core\Mocky\Auth\LoginCommand;
-use LineMob\Core\Mocky\Auth\SecuredCommand;
+use LineMob\Core\Mocky\Auth\AuthenticationWorkflow;
+use LineMob\Core\Mocky\Auth\Command\ClearActiveCommand;
+use LineMob\Core\Mocky\Auth\Command\LoginCommand;
+use LineMob\Core\Mocky\Auth\Command\LogoutCommand;
+use LineMob\Core\Mocky\Auth\Command\NonSecuredCommand;
+use LineMob\Core\Mocky\Auth\Command\SecuredCommand;
+use LineMob\Core\Mocky\Auth\Middleware\AuthenticationMiddleware;
+use LineMob\Core\Mocky\Auth\Middleware\AuthorizationMiddleware;
+use LineMob\Core\Mocky\Auth\Middleware\ClearActiveMiddleware;
+use LineMob\Core\Mocky\Auth\Middleware\LogoutMiddleware;
+use LineMob\Core\Mocky\Doctrine\Model\User;
 use LineMob\Core\Mocky\Doctrine\StorageConnectMiddleware;
 use LineMob\Core\Mocky\Doctrine\StoragePersistMiddleware;
 use LineMob\Core\Mocky\Switcher\SomeCommand;
 use LineMob\Core\Mocky\Switcher\SwitchedCommand;
 use LineMob\Core\Mocky\Switcher\SwitchingMiddleware;
 use LineMob\Core\QuickStart;
+use Symfony\Component\Workflow\Registry as WorkflowRegistry;
 
 class Setup
 {
@@ -48,21 +56,28 @@ class Setup
      */
     public static function authen(array $data)
     {
+        $workflowRegistry = new WorkflowRegistry();
+        $workflowRegistry->add((new AuthenticationWorkflow())->create(), User::class);
+
         return (new QuickStart(
             [
-                new ClearActiveCmdMiddleware(),
                 new StorageConnectMiddleware(),
+                new ClearActiveMiddleware(), // Clear user's storage active
+                new LogoutMiddleware(),
                 new AuthorizationMiddleware(),
                 new CommandSwitcherMiddleware(),
-                new AuthenticationMiddleware(),
+                new AuthenticationMiddleware($workflowRegistry),
                 new DummyFallbackMiddleware(),
                 new StoreActiveCmdMiddleware(),
                 new StoragePersistMiddleware(),
                 new DumpLogMiddleware(true),
             ]
         ))
-            ->addCommand(SecuredCommand::class, true)
+            ->addCommand(NonSecuredCommand::class, true)
+            ->addCommand(ClearActiveCommand::class)
+            ->addCommand(SecuredCommand::class)
             ->addCommand(LoginCommand::class)
+            ->addCommand(LogoutCommand::class)
             ->setup(null, null, [], new Sender())
             ->handle(json_encode($data));
     }

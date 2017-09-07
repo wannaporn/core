@@ -30,8 +30,6 @@ class StoragePersistMiddleware implements Middleware
             throw new \LogicException("Require storage before using this StoragePersistMiddleware!");
         }
 
-        $command->storage->setLineCommandData($command->getData());
-
         Manager::persist($command->storage);
         Manager::flush();
 

@@ -11,6 +11,7 @@ use LineMob\Core\Storage\CommandDataInterface;
  */
 class User extends CommandData implements CommandDataInterface
 {
+    const START_STATE = ['started' => 1];
     /**
      * @Id
      * @GeneratedValue
@@ -42,7 +43,7 @@ class User extends CommandData implements CommandDataInterface
      * @Column(type="json_array", nullable=true)
      * @var array
      */
-    protected $state = [];
+    protected $state = self::START_STATE;
 
     /**
      * @return int
