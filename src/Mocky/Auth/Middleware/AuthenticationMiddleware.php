@@ -24,7 +24,7 @@ class AuthenticationMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if (!$subject = $command->storage) {
+        if (!$command->storage) {
             throw new \LogicException("Require storage before using this AuthenticationMiddleware!");
         }
 
