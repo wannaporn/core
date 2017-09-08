@@ -37,6 +37,7 @@ class StorageConnectMiddleware implements Middleware
         $command->merge((array) $user->getLineCommandData());
 
         $user->setLineUserId($command->input->userId);
+
         if ($command->active) {
             $user->setLineActiveCmd($command->getCmd());
         }

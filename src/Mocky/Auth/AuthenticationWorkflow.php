@@ -20,7 +20,7 @@ class AuthenticationWorkflow extends AbstractWorkflow
                 'type' => 'multiple_state',
                 'arguments' => ['state'],
             ],
-            'supported' => [
+            'supports' => [
                 User::class,
             ],
             'places' => [
