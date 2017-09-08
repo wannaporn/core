@@ -50,7 +50,7 @@ abstract class AbstractWorkflow
      */
     public function create()
     {
-        $config = array_merge([
+        $config = array_replace_recursive([
             'name' => get_class($this),
             'places' => [],
             'transitions' => [],
