@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace LineMob\Core\Middleware;
+namespace LineMob\Core\Mocky\Doctrine;
 
 use League\Tactician\Middleware;
 use LineMob\Core\Command\AbstractCommand;
+use LineMob\Core\Mocky\Doctrine\Model\User;
 
 /**
  * @author Ishmael Doss <nukboon@gmail.com>
  */
-class CommandSwitcherMiddleware implements Middleware
+class StorageConnectMiddleware implements Middleware
 {
     /**
      * @param AbstractCommand $command
@@ -26,9 +27,16 @@ class CommandSwitcherMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command->switchTo) {
-            $command = $command->switchTo;
+        $repository = Manager::getRepository(User::class);
+
+        if (!$user = $repository->findOneBy(['lineUserId' => $command->input->userId])) {
+            $user = new User();
         }
+
+        $command->storage = $user;
+        $command->merge((array) $user->getLineCommandData());
+
+        $user->setLineUserId($command->input->userId);
 
         return $next($command);
     }

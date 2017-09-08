@@ -3,10 +3,14 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
+$options = getopt("t:", []);
+
 use LineMob\Core\Constants;
 use LineMob\Core\Mocky\Setup;
 
-$result = Setup::switching(
+\LineMob\Core\Mocky\Doctrine\Manager::get(true);
+
+$results = Setup::authen(
     [
         'events' => [
             [
@@ -17,10 +21,17 @@ $result = Setup::switching(
                 ],
                 'message' => [
                     'type' => Constants::REVEIVE_TYPE_MESSAGE_TEXT,
+                    'text' => $options['t'], // use `-t xxxxxx` in terminal
                 ],
             ],
         ],
     ]
 );
 
-dump($result);
+foreach ($results as $result) {
+    if ($result instanceof \LINE\LINEBot\Response) {
+        dump($result->getJSONDecodedBody());
+    } else {
+        dump($result);
+    }
+}

@@ -11,6 +11,8 @@ use LineMob\Core\Storage\CommandDataInterface;
  */
 class User extends CommandData implements CommandDataInterface
 {
+    const START_STATE = 'started';
+
     /**
      * @Id
      * @GeneratedValue
@@ -34,10 +36,53 @@ class User extends CommandData implements CommandDataInterface
     protected $lineCommandData;
 
     /**
+     * @Column(type="datetime_immutable", nullable=true)
+     */
+    protected $lineLastLogin;
+
+    /**
+     * @Column(type="json_array", nullable=true)
+     * @var array
+     */
+    protected $state = [self::START_STATE => 1];
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getLineLastLogin()
+    {
+        return $this->lineLastLogin;
+    }
+
+    /**
+     * @param \DateTimeImmutable $lineLastLogin
+     */
+    public function setLineLastLogin(\DateTimeImmutable $lineLastLogin = null)
+    {
+        $this->lineLastLogin = $lineLastLogin;
+    }
+
+    /**
+     * @return array
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param array $state
+     */
+    public function setState(array $state)
+    {
+        $this->state = $state;
     }
 }

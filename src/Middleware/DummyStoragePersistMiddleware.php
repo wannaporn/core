@@ -27,7 +27,7 @@ class DummyStoragePersistMiddleware implements Middleware
     public function execute($command, callable $next)
     {
         if (!$command->storage) {
-            throw new \RuntimeException("Require storage before using this middleware!");
+            throw new \LogicException("Require storage before using this middleware!");
         }
 
         $command->storage->setLineCommandData($command->getData());

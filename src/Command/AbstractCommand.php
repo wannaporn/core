@@ -18,6 +18,7 @@ use LineMob\Core\Template\TemplateInterface;
 /**
  * @property boolean $active
  * @property string $logs
+ * @property AbstractCommand|null $switchTo
  *
  * @author Ishmael Doss <nukboon@gmail.com>
  */
@@ -227,5 +228,22 @@ abstract class AbstractCommand implements \ArrayAccess
     public function supported($cmd)
     {
         return $this->cmd === $cmd;
+    }
+
+    /**
+     * @param string $commandClass
+     * @param array $args
+     *
+     * @return AbstractCommand
+     */
+    public function switchTo($commandClass, array $args = [])
+    {
+        $cmd = new $commandClass($args);
+        $cmd->input = $this->input;
+        $cmd->storage = $this->storage;
+        $cmd->logs = $this->logs;
+        $this->switchTo = $cmd;
+
+        return $cmd;
     }
 }
