@@ -61,7 +61,7 @@ class Setup
                 new LogoutMiddleware(),
                 new AuthorizationMiddleware(),
                 new CommandSwitcherMiddleware(),
-                new AuthenticationMiddleware(new AuthenticationWorkflow(new WorkflowRegistry())),
+                new AuthenticationMiddleware(new AuthenticationWorkflow(new WorkflowRegistry(null, true))),
                 new DummyFallbackMiddleware(),
                 new StoreActiveCmdMiddleware(),
                 new StoragePersistMiddleware(),
