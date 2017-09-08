@@ -111,10 +111,10 @@ class WorkflowRegistry implements WorkflowRegistryInterface
         $definition = $definitionBuilder->build();
         $markingStoreArguments = $config['marking_store']['arguments'];
 
+        $marking = new SingleStateMarkingStore(...$markingStoreArguments);
+
         if ('multiple_state' === $config['marking_store']['type']) {
             $marking = new MultipleStateMarkingStore(...$markingStoreArguments);
-        } else {
-            $marking = new SingleStateMarkingStore(...$markingStoreArguments);
         }
 
         if ($this->isDevMode) {

@@ -94,16 +94,18 @@ class AuthenticationWorkflow extends AbstractWorkflow
 
         @list($username, $password) = $this->captureUserAndPassword($command->input);
 
-        if ($username && $password && $workflow->can($subject, 'enter_username_n_password')) {
-            if ($username === 'demo' && $password === 'demo') {
-                $workflow->apply($subject, 'enter_username_n_password');
+        $command->message->text = 'Try again ...';
 
-                $command->storage->setLineLastLogin(new \DateTimeImmutable());
-                $command->active = false;
-                $command->message->text = 'Success!';
-            } else {
-                $command->message->text = 'Try again ...';
-            }
+        if (!$username || !$password || !$workflow->can($subject, 'enter_username_n_password')) {
+            return false;
+        }
+
+        if ($username === 'demo' && $password === 'demo') {
+            $workflow->apply($subject, 'enter_username_n_password');
+
+            $command->storage->setLineLastLogin(new \DateTimeImmutable());
+            $command->active = false;
+            $command->message->text = 'Success!';
 
             return true;
         }
