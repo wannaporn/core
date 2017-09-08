@@ -3,6 +3,7 @@
 namespace LineMob\Core\Mocky\Auth\Middleware;
 
 use League\Tactician\Middleware;
+use LineMob\Core\Mocky\Auth\Command\BaseCommand;
 use LineMob\Core\Mocky\Auth\Command\LoginCommand;
 use LineMob\Core\Mocky\Doctrine\Model\User;
 
@@ -19,6 +20,8 @@ class AuthorizationMiddleware implements Middleware
     }
 
     /**
+     * @param BaseCommand $command
+     *
      * {@inheritdoc}
      */
     public function execute($command, callable $next)
@@ -35,12 +38,7 @@ class AuthorizationMiddleware implements Middleware
             return $next($command);
         }
 
-        $cmd = new LoginCommand();
-        $cmd->input = $command->input;
-        $cmd->storage = $command->storage;
-        $cmd->logs = $command->logs;
-
-        $command['switchTo'] = $cmd;
+        $command->switchTo(LoginCommand::class);
 
         return $next($command);
 

@@ -3,26 +3,20 @@
 namespace LineMob\Core\Mocky\Auth\Middleware;
 
 use League\Tactician\Middleware;
-use LineMob\Core\Input;
+use LineMob\Core\Mocky\Auth\AuthenticationWorkflow;
 use LineMob\Core\Mocky\Auth\Command\LoginCommand;
-use LineMob\Core\Mocky\Doctrine\Model\User;
 use LineMob\Core\Template\TextTemplate;
-use Symfony\Component\Workflow\DefinitionBuilder;
-use Symfony\Component\Workflow\MarkingStore\MultipleStateMarkingStore;
-use Symfony\Component\Workflow\Registry;
-use Symfony\Component\Workflow\Transition;
-use Symfony\Component\Workflow\Workflow;
 
 class AuthenticationMiddleware implements Middleware
 {
     /**
-     * @var Registry
+     * @var AuthenticationWorkflow
      */
-    private $registry;
+    private $workflow;
 
-    public function __construct(Registry $registry)
+    public function __construct(AuthenticationWorkflow $workflow)
     {
-        $this->registry = $registry;
+        $this->workflow = $workflow;
     }
 
     /**
@@ -41,67 +35,22 @@ class AuthenticationMiddleware implements Middleware
         $command->active = true;
         $command->message = new TextTemplate();
 
-        $workflow = $this->registry->get($subject);
-
-        if ($workflow->can($subject, 'start')) {
-            $workflow->apply($subject, 'start');
-
-            $command->message->text = 'Please Enter username & password.';
-
+        if ($this->workflow->doApplyStart($command)) {
             return $next($command);
         }
 
-        @list($username, $password) = $this->captureUserAndPassword($command->input);
-
-        if ($username && $password && $workflow->can($subject, 'enter_username_n_password')) {
-            if ($username === 'demo' && $password === 'demo') {
-                $workflow->apply($subject, 'enter_username_n_password');
-
-                $command->storage->setLineLastLogin(new \DateTimeImmutable());
-                $command->active = false;
-                $command->message->text = 'Success!';
-            } else {
-                $command->message->text = 'Try again ...';
-            }
-
+        if ($this->workflow->doApplyEnterUsernameAndPassword($command)) {
             return $next($command);
         }
 
-        if ($username && $workflow->can($subject, 'enter_username')) {
-            if ($username === 'demo') {
-                $workflow->apply($subject, 'enter_username');
-
-                $command->message->text = 'Please Enter password!';
-            } else {
-                $command->message->text = 'Not found username, Try again ...';
-            }
-
+        if ($this->workflow->doApplyEnterUsername($command)) {
             return $next($command);
         }
 
-        $password = $username;
-
-        if ($password && $workflow->can($subject, 'enter_password')) {
-            if ($password === 'demo') {
-                $workflow->apply($subject, 'enter_password');
-
-                $command->storage->setLineLastLogin(new \DateTimeImmutable());
-                $command->active = false;
-                $command->message->text = 'Success!';
-            } else {
-                $command->message->text = 'Password not match, Try again ...';
-            }
-
+        if ($this->workflow->doApplyEnterPassword($command)) {
             return $next($command);
         }
 
         throw new \LogicException("Unknown case!");
-    }
-
-    private function captureUserAndPassword(Input $input)
-    {
-        $text = trim(preg_replace('|\W+|', ' ', $input->text));
-
-        return explode(' ', $text);
     }
 }

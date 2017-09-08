@@ -2,7 +2,6 @@
 
 namespace LineMob\Core\Mocky;
 
-use LineMob\Core\Middleware\ClearActiveCmdMiddleware;
 use LineMob\Core\Middleware\CommandSwitcherMiddleware;
 use LineMob\Core\Middleware\DummyFallbackMiddleware;
 use LineMob\Core\Middleware\DumpLogMiddleware;
@@ -17,14 +16,13 @@ use LineMob\Core\Mocky\Auth\Middleware\AuthenticationMiddleware;
 use LineMob\Core\Mocky\Auth\Middleware\AuthorizationMiddleware;
 use LineMob\Core\Mocky\Auth\Middleware\ClearActiveMiddleware;
 use LineMob\Core\Mocky\Auth\Middleware\LogoutMiddleware;
-use LineMob\Core\Mocky\Doctrine\Model\User;
 use LineMob\Core\Mocky\Doctrine\StorageConnectMiddleware;
 use LineMob\Core\Mocky\Doctrine\StoragePersistMiddleware;
 use LineMob\Core\Mocky\Switcher\SomeCommand;
 use LineMob\Core\Mocky\Switcher\SwitchedCommand;
 use LineMob\Core\Mocky\Switcher\SwitchingMiddleware;
 use LineMob\Core\QuickStart;
-use Symfony\Component\Workflow\Registry as WorkflowRegistry;
+use LineMob\Core\Workflow\WorkflowRegistry;
 
 class Setup
 {
@@ -56,9 +54,6 @@ class Setup
      */
     public static function authen(array $data)
     {
-        $workflowRegistry = new WorkflowRegistry();
-        $workflowRegistry->add((new AuthenticationWorkflow())->create(), User::class);
-
         return (new QuickStart(
             [
                 new StorageConnectMiddleware(),
@@ -66,7 +61,7 @@ class Setup
                 new LogoutMiddleware(),
                 new AuthorizationMiddleware(),
                 new CommandSwitcherMiddleware(),
-                new AuthenticationMiddleware($workflowRegistry),
+                new AuthenticationMiddleware(new AuthenticationWorkflow(new WorkflowRegistry())),
                 new DummyFallbackMiddleware(),
                 new StoreActiveCmdMiddleware(),
                 new StoragePersistMiddleware(),

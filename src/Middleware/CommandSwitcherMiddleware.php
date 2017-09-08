@@ -26,8 +26,8 @@ class CommandSwitcherMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        if ($command['switchTo']) {
-            $command = $command['switchTo'];
+        if ($command->switchTo) {
+            $command = $command->switchTo;
         }
 
         return $next($command);

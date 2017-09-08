@@ -2,9 +2,7 @@
 
 namespace LineMob\Core\Mocky\Auth\Command;
 
-use LineMob\Core\Command\AbstractCommand;
-
-class ClearActiveCommand extends AbstractCommand
+class ClearActiveCommand extends BaseCommand
 {
     public $cmd = ':exit';
 }

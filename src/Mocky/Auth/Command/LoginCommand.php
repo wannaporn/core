@@ -2,11 +2,7 @@
 
 namespace LineMob\Core\Mocky\Auth\Command;
 
-use LineMob\Core\Command\AbstractCommand;
-
-class LoginCommand extends AbstractCommand
+class LoginCommand extends BaseCommand
 {
     protected $cmd = ':login';
-
-    public $active = true;
 }
