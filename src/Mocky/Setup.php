@@ -58,12 +58,12 @@ class Setup
             [
                 new StorageConnectMiddleware(),
                 new ClearActiveMiddleware(), // Clear user's storage active
-                new LogoutMiddleware(),
                 new AuthorizationMiddleware(),
                 new CommandSwitcherMiddleware(),
+                new StoreActiveCmdMiddleware(),
+                new LogoutMiddleware(),
                 new AuthenticationMiddleware(new AuthenticationWorkflow(new WorkflowRegistry(null, true))),
                 new DummyFallbackMiddleware(),
-                new StoreActiveCmdMiddleware(),
                 new StoragePersistMiddleware(),
                 new DumpLogMiddleware(true),
             ]

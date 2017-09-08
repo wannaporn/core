@@ -12,7 +12,7 @@
 namespace LineMob\Core\Workflow;
 
 /**
- * @author phakpoom <phakpoom@gmail.com>
+ * @author Bonn <im_bonbonn@hotmail.com>
  */
 abstract class AbstractWorkflow
 {

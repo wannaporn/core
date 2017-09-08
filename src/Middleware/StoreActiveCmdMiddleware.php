@@ -32,6 +32,7 @@ class StoreActiveCmdMiddleware implements Middleware
             }
 
             $command->storage->setLineActiveCmd($command->getCmd());
+            $command->storage->setLineCommandData($command->getData());
         }
 
         return $next($command);

@@ -30,7 +30,7 @@ class AuthorizationMiddleware implements Middleware
             throw new \LogicException("Require storage before using this middleware!");
         }
 
-        if (!$command->secured) {
+        if (!$command->secured && LoginCommand::CMD !== $command->storage->getLineActiveCmd()) {
             return $next($command);
         }
 
@@ -41,7 +41,6 @@ class AuthorizationMiddleware implements Middleware
         $command->switchTo(LoginCommand::class);
 
         return $next($command);
-
     }
 
     /**

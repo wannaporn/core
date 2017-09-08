@@ -153,6 +153,8 @@ class AuthenticationWorkflow extends AbstractWorkflow
                 $workflow->apply($subject, 'enter_password');
 
                 $command->storage->setLineLastLogin(new \DateTimeImmutable());
+                $command->storage->setLineActiveCmd(null);
+                $command->storage->setLineCommandData([]);
                 $command->active = false;
                 $command->message->text = 'Success!';
             } else {

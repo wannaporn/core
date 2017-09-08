@@ -3,6 +3,8 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
+$options = getopt("t:", []);
+
 use LineMob\Core\Constants;
 use LineMob\Core\Mocky\Setup;
 
@@ -19,7 +21,7 @@ $results = Setup::authen(
                 ],
                 'message' => [
                     'type' => Constants::REVEIVE_TYPE_MESSAGE_TEXT,
-                    'text' => ':exit',
+                    'text' => $options['t'], // use `-t xxxxxx` in terminal
                 ],
             ],
         ],
