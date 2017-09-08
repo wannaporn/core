@@ -31,7 +31,7 @@ class ClearActiveMiddleware implements Middleware
         /** @var User $subject */
         $subject->setLineActiveCmd(null);
         $subject->setLineCommandData([]);
-        $subject->setState(User::START_STATE);
+        $subject->setState([User::START_STATE => 1]);
 
         $command->message = new TextTemplate();
         $command->message->text = 'ยกเลิกคำสั่งเรียบร้อย';

@@ -30,7 +30,7 @@ class LogoutMiddleware implements Middleware
 
         /** @var User $subject */
         $subject->setLineLastLogin(null);
-        $subject->setState(User::START_STATE);
+        $subject->setState([User::START_STATE => 1]);
 
         $command->message = new TextTemplate();
         $command->message->text = 'ออกจากระบบสำเร็จ !';
