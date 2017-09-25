@@ -1,5 +1,5 @@
 {
-    "name": "linemob/core",
+    "name": "linemob/core-php",
     "type": "library",
     "description": "Line Bot Translation using google translation api.",
     "keywords": [

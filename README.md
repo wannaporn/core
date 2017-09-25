@@ -10,7 +10,7 @@ A rapid line bot builder library - in php.
 ## Demo Bots
   - [Very simple `Say, Hi!` bot](https://github.com/linemob/bot-sayhi)
   - [Google Translation bot](https://github.com/linemob/bot-translation)
-  
+
 ## TODOs
   - [ ] Writing spec tests.
 
@@ -18,6 +18,9 @@ A rapid line bot builder library - in php.
 ```bash
 $ ./bin/phpspec run -fpretty
 ```
+
+## Third Party
+  - https://github.com/line/line-bot-sdk-php
 
 ## LICENSE
 [MIT](LICENSE)
