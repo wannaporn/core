@@ -35,7 +35,7 @@
         "php-http/client-implementation": "^1.0",
         "php-http/httplug": "^1.0",
         "php-http/discovery": "^1.0",
-        "symfony/workflow": "^3.3"
+        "symfony/workflow": "3.2.*"
     },
     "require-dev": {
         "phpspec/phpspec": "^3.0",
